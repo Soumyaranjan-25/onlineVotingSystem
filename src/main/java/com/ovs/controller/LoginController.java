@@ -1,0 +1,77 @@
+package com.ovs.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.ovs.model.Branch;
+import com.ovs.model.Course;
+import com.ovs.model.User;
+import com.ovs.service.BranchService;
+import com.ovs.service.CourseService;
+import com.ovs.service.UserService;
+import com.ovs.utils.CommonFileUpload;
+
+@org.springframework.stereotype.Controller
+public class LoginController {
+
+	@Autowired
+	private CourseService courseService;
+
+	@Autowired
+	private BranchService branchService;
+	
+	@Autowired
+	private UserService userService;
+
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
+
+	@GetMapping("/signUp")
+	public String signUp(Model model) {
+		model.addAttribute("courseList", courseService.getAllCourse());
+		model.addAttribute("branchList", branchService.getAllBranch());
+		return "resister";
+	}
+
+	@RequestMapping(path = "getBranchByCourse")
+	public void getBranchByCourse(HttpServletRequest req, HttpServletResponse resp,
+			@RequestParam("courseId") Integer courseId) throws IOException {
+		PrintWriter pw = resp.getWriter();
+		Course course = courseService.getCourseById(courseId);
+		String t = null;
+		for (Branch branch : course.getBranch()) {
+			t += "<option value='" + branch.getBranchId() + "'>" + branch.getBranchName() + "</option>";
+
+		}
+
+		pw.print(t);
+	}
+	
+	@PostMapping("/saveUser")
+	public String saveUser(@ModelAttribute User user,@RequestParam("dobb") String dob,@RequestParam("studenIidCard") MultipartFile idCard,Model model) throws ParseException, IOException {
+		Date birthDate=new SimpleDateFormat("dd/MM/yyyy").parse(dob);
+		user.setDob(birthDate);
+		String path = CommonFileUpload.singleFileUplaod(idCard, "idCard");
+		user.setIdCard((path));
+		userService.saveUser(user);
+		model.addAttribute("msg","Applicant saved successfully");
+		return "login";
+	}
+}

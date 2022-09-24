@@ -23,108 +23,127 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 </head>
 <body>
-	<div class="container">
-		<div class="display-4  text-danger text-center mt-5">User
-			Resistration Form</div>
-		<form action="./saveUser" method="post" class="form-group" onsubmit="">
+	<div class="container border">
+		<div class="display-4  text-danger text-center mt-5">Student
+			Resistration Page</div>
+		<form action="./saveUser" method="post" class="form-group" onsubmit="" enctype="multipart/form-data">
 			<input type="hidden" name="userId" id="userId"
 				value="${updateUser.userId}">
 			<div class="row">
 				<div class="col-sm-6">
-					<label class="text-primary">User Name</label> <input type="text"
+					<label class="text-primary">User Name<span
+						class="text-danger">*</span></label> <input type="text"
 						class="form-control" name="userName" id="userName"
 						required="required" value="${updateUser.userName}"
 						<c:if test="${updateUser ne NULL}">readonly</c:if>>
 				</div>
 				<div class="col-sm-6">
-					<label class="text-primary">Email</label> <input type="text"
-						class="form-control" name="email" id="email" required="required"
-						value="${updateUser.email}">
+					<label class="text-primary">Resistration Number<span class="text-danger">*</span></label>
+					<input type="text" class="form-control" name="regdNo" id="regdNo"
+						required="required" value="${updateUser.regdNo}">
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-6">
-					<label class="text-primary">Password</label> <input type="password"
+					<label class="text-primary">Password<span
+						class="text-danger">*</span></label> <input type="password"
 						class="form-control" name="password" id="password"
 						required="required" value="${updateUser.password}"
 						<c:if test="${updateUser ne NULL}">readonly</c:if>>
 
 				</div>
 
-				<c:if test="${updateUser ne NULL}">
-					<div class="col-sm-6">
-						<label class="text-primary">User Type</label> <select
-							name="userType" id="userType" class="form-control">
-							<option>--select--</option>
-							<c:forEach items="${userTypeList}" var="userType">
-								<option value="${userType.userTypeId}"
-									<c:if test="${updateUser.userType.userTypeId eq userType.userTypeId}">selected="selected"</c:if>>${userType.userTypeName}</option>
-							</c:forEach>
-
-						</select>
-					</div>
-				</c:if>
-				<c:if test="${updateUser eq NULL}">
-
-					<div class="col-sm-6">
-						<label class="text-primary">Repeat Password</label> <input
-							type="password" class="form-control" name="repeatPassword"
-							id="repeatPassword" onchange="validatePassword()"
-							required="required" value="${updateUser.password}"
-							<c:if test="${updateUser ne NULL}">readonly</c:if>>
-					</div>
-				</c:if>
+				<div class="col-sm-6">
+					<label class="text-primary">Repeat Password<span
+						class="text-danger">*</span></label> <input type="password"
+						class="form-control" name="repeatPassword" id="repeatPassword"
+						onchange="validatePassword()" required="required"
+						value="${updateUser.password}"
+						<c:if test="${updateUser ne NULL}">readonly</c:if>>
+				</div>
+				
 			</div>
 			<div class="row">
 				<div class="col-sm-6">
-					<label class="text-primary">mobile no</label> <input type="text"
+					<label class="text-primary">mobile no<span
+						class="text-danger">*</span></label> <input type="text"
 						class="form-control" name="mobileNo" id="mobileNo"
 						required="required" value="${updateUser.mobileNo}">
 				</div>
+				<div class="col-sm-6">
+					<label class="text-primary">Email<span class="text-danger">*</span></label>
+					<input type="text" class="form-control" name="email" id="email"
+						required="required" value="${updateUser.email}">
+				</div>
+
+
+				
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<label class="text-primary">Course Name<span
+						class="text-danger">*</span>
+					</label> <select class="form-control" name="course" id="course"
+						onchange="getBranch()">
+						<option value="Select">Select</option>
+						<c:forEach items="${courseList}" var="course">
+							<option value="${course.courseId}">${course.courseName}</option>
+
+						</c:forEach>
+					</select>
+				</div>
 
 
 				<div class="col-sm-6">
-					<label class="text-primary">D.O.B</label> <input type="text"
-						class="form-control" name="dobb" id="dob" required="required"
-						value="
-						<fmt:formatDate pattern = "dd/mm/yyyy" value="${updateUser.dob}"/>">
+					<label class="text-primary">Branch Name<span
+						class="text-danger">*</span></label> <select class="form-control "
+						name="branch" id="branch" onchange="getfees()">
+						<option value="0">Select</option>
+					</select>
 				</div>
 			</div>
 
+
 			<div class="row">
+				<div class="col-sm-4">
+					<label class="text-primary">D.O.B<span class="text-danger">*</span></label>
+					<input type="text" class="form-control" name="dobb" id="dob"
+						required="required"
+						value="
+						<fmt:formatDate pattern = "dd/mm/yyyy" value="${updateUser.dob}"/>">
+				</div>
 				<div class="col-sm-4 mt-4">
-					<label class="text-primary">Gender</label> <input type="radio"
-						name="gender" id="male" value="male"
+					<label class="text-primary mt-2 ml-2">Gender <span class="text-danger"> *</span></label>
+					<input type="radio" name="gender" id="male" value="male"
 						<c:if test="${updateUser.gender eq 'male'}">checked="checked"</c:if>>male
 					<input type="radio" name="gender" id="female" value="female"
 						<c:if test="${updateUser.gender eq 'female'}">checked="checked"</c:if>>female
 				</div>
-
-
-				<div class="col-sm-4">
-					<label class="text-primary">Religion</label> <select
-						name="religion" id="relogion" class="form-control">
-						<option>--select--</option>
-						<c:forEach items="${religionList}" var="religion">
-							<option value="${religion.religionId}"
-								<c:if test="${updateUser.religion.religionId eq religion.religionId}">selected="selected"</c:if>>${religion.religionName}</option>
-						</c:forEach>
-
-					</select>
-				</div>
-				<div class="col-sm-4 mt-4">
-					<label class="text-primary">Language</label>
-					<c:forEach items="${languageList}" var="language">
-						<input type="checkbox" value="${language.languageId}"
-							name="language"
-							<c:forEach items="${updateUser.language}" var="lang"> <c:if test="${lang.languageId eq language.languageId}">checked="checked"</c:if></c:forEach>>${language.languageName} 
-						</c:forEach>
+				<div class="col-md-4 control-label">
+					<div class="form-group">
+						<label class="text-primary">Upload Student ID card<span
+							class="text-danger">*</span></label> <input type="file"
+							class="form-control" name="studenIidCard" id="studenIidCard">
+					</div>
 				</div>
 			</div>
 
+			<div class="row">
+				<div class="col-sm-6">
+					<label class="text-primary">Address<span
+						class="text-danger">*</span></label>
+					<textarea name="address" id="address" class="form-control"></textarea>
+				</div>
+				<div class="col-sm-6">
+					<label class="text-primary">Remark</label>
+					<textarea name="remark" id="remark" class="form-control"></textarea>
+				</div>
+			</div>
+
+
 			<div align="center" class="mt-5">
 				<c:if test="${updateUser eq NULL}">
-					<input type="submit" value="submit" class="btn btn-success">
+					<input type="submit" value="resister" class="btn btn-success">
 				</c:if>
 				<c:if test="${updateUser ne NULL}">
 					<input type="submit" value="update" class="btn btn-success">
@@ -132,14 +151,25 @@
 				<input type="reset" value="clear" class="btn btn-secondary">
 
 			</div>
-
-
 		</form>
 	</div>
 	<script type="text/javascript">
 		$('#dob').datepicker({
 			format : 'dd/mm/yyyy'
 		});
+
+		function getBranch() {
+			var courseId = $("#course").val();
+			$.ajax({
+				type : "GET",
+				url : "./getBranchByCourse",
+				data : "courseId=" + courseId,
+				success : function(response) {
+					$("#branch").html(response);
+				}
+
+			});
+		}
 	</script>
 </body>
 </html>

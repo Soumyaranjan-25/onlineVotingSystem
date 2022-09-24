@@ -1,15 +1,13 @@
 package com.ovs.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.ovs.model.Branch;
+import com.ovs.model.Role;
 @Repository
-public interface BranchRepository extends JpaRepository<Branch, Integer> {
-	@Query("From Branch where bitstatus='false'")
-	List<Branch> getAllBranch();
+public interface RoleRepository extends JpaRepository<Role, Integer> {
+	@Query("FROM Role where roleId=:roleId")
+	Role getRoleById(Integer roleId);
 
 }

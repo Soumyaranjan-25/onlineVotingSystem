@@ -30,20 +30,28 @@ public class Course implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="course_id")
 	private Integer courseId;
+	
 	@Column(name="course_name")
 	private String courseName;
+	
 	@Column(name="bitstatus")
 	private String bitstatus;
+	
 	@Column(name="remark")
 	private String remark;
+	
 	@Column(name="created_on")
 	private Date createdOn;
+	
 	@Column(name="updated_on")
 	private Date updatedOn;
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
     private List<Branch> branch;
+	
 	@Column(name="created_by")
 	private Integer createdBy;
+	
 	@Column(name="updated_by")
 	private Integer updatedBy;
 }

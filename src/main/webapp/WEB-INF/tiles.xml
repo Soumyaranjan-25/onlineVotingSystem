@@ -6,13 +6,7 @@
 
 <tiles-definitions>
 
-	<!-- <definition name="welcome" template="/WEB-INF/jsp/welcome.jsp">
-		<put-attribute name="title" value="Welcome Page" />
-		<put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
-		<put-attribute name="body" value="/WEB-INF/tiles/body.jsp" />
-		<put-attribute name="menu" value="/WEB-INF/tiles/menu.jsp" />
-		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
-	</definition> -->
+	
 	<definition name="base.definition"
 		template="/WEB-INF/tiles/layout.jsp">
 		<put-attribute name="title" value="" />
@@ -33,9 +27,6 @@
 		<put-attribute name="title" value="branch page" />
 		<put-attribute name="body" value="/WEB-INF/jsp/branch.jsp" />
 	</definition>
-	<definition name="loginForm" extends="base.definition">
-		<put-attribute name="title" value="loginForm page" />
-		<put-attribute name="body" value="/WEB-INF/jsp/loginForm.jsp" />
-	</definition>
+	
 
 </tiles-definitions>
