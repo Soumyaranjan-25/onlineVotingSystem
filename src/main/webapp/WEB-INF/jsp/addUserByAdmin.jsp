@@ -122,9 +122,9 @@
 								class="text-danger">*</span></label> <select class="form-control "
 								name="branch" id="branch" onchange="getfees()">
 								<option value="0">Select</option>
-								<c:if test="${updateUser.branchId ne null}">
+								<c:if test="${updateUser.branch ne null}">
 								<c:forEach items="${updateUser.course.branch}" var="branch">
-									<option value="${branch.branchId}" <c:if test="${updateUser.branchId eq branch.branchId }">selected="selected"</c:if>>${branch.branchName}</option>
+									<option value="${branch.branchId}" <c:if test="${updateUser.branch.branchId eq branch.branchId }">selected="selected"</c:if>>${branch.branchName}</option>
 
 								</c:forEach></c:if>
 							</select>
