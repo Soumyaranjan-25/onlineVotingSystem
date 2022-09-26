@@ -7,7 +7,7 @@
 <tiles-definitions>
 
 	
-	<definition name="base.definition"
+	<definition name="base.definitionAdmin"
 		template="/WEB-INF/tiles/layout.jsp">
 		<put-attribute name="title" value="" />
 		<put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
@@ -15,18 +15,39 @@
 		<put-attribute name="menu" value="/WEB-INF/tiles/menu.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
 	</definition>
-	<definition name="dashBoard" extends="base.definition">
-		<put-attribute name="title" value="dashBoard page" />
-		<put-attribute name="body" value="/WEB-INF/jsp/dashBoard.jsp" />
+	
+	<definition name="base.definitionUser"
+		template="/WEB-INF/tiles/userLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="menu" value="/WEB-INF/tiles/userMenu.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
 	</definition>
-	<definition name="course" extends="base.definition">
+	
+	<definition name="adminDashBoard" extends="base.definitionAdmin">
+		<put-attribute name="title" value="dashBoard page" />
+		<put-attribute name="body" value="/WEB-INF/jsp/adminDashBoard.jsp" />
+	</definition>
+	
+	<definition name="course" extends="base.definitionAdmin">
 		<put-attribute name="title" value="course page" />
 		<put-attribute name="body" value="/WEB-INF/jsp/course.jsp" />
 	</definition>
-	<definition name="branch" extends="base.definition">
+	
+	<definition name="branch" extends="base.definitionAdmin">
 		<put-attribute name="title" value="branch page" />
 		<put-attribute name="body" value="/WEB-INF/jsp/branch.jsp" />
 	</definition>
 	
+	<definition name="addUserByAdmin" extends="base.definitionAdmin">
+		<put-attribute name="title" value="addUserByAdmin page" />
+		<put-attribute name="body" value="/WEB-INF/jsp/addUserByAdmin.jsp" />
+	</definition>
+	
+	<definition name="userDashBoard" extends="base.definitionUser">
+		<put-attribute name="title" value="dashBoard page" />
+		<put-attribute name="body" value="/WEB-INF/jsp/userDashBoard.jsp" />
+	</definition>
 
 </tiles-definitions>

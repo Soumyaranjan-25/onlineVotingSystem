@@ -66,6 +66,9 @@ public class User implements Serializable {
 	@Column(name="mobile_no")
 	private String mobileNo;
 	
+	@Column(name="email")
+	private String email;
+
 	@Column(name="approve_status")
 	private Integer approveStatus;
 	

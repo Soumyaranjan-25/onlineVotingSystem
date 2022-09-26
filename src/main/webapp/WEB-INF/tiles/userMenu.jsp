@@ -81,62 +81,19 @@ body {
 
 <div class="sidenav">
 <div style=""></div>
-<h3 align="center" style="text-shadow: 2px 2px 5px red">Admin</h3>
-<p align="center" style="color :#000080 ">(Soumyaranjan)</p>
+<h3 align="center" style="text-shadow: 2px 2px 5px red">User</h3>
+<p align="center" style="color :#000080 ">(UserName)</p>
 <hr>
-  <a href="./dashBoard">DashBoard</a>
+  <a href="#about">DashBoard</a>
   <hr>
-   <button class="dropdown-btn">Services 
-    <i class="fa fa-caret-down"></i>
-  </button>
-  <div class="dropdown-container">
-    <a href="./course">Course</a>
-    <hr>
-    <a href="./branch">Branch</a>
-    
-  </div>
+  
+  <a href="#clients">User Details</a>
   <hr>
-   <button class="dropdown-btn">Manage User 
-    <i class="fa fa-caret-down"></i>
-  </button>
-  <div class="dropdown-container">
-    <a href="./addUserByAdmin">Add User</a>
-    <hr>
-    <a href=".userList">User List</a>
-    </div>
-  <hr>
-   <button class="dropdown-btn">Manage Voting 
-    <i class="fa fa-caret-down"></i>
-  </button>
-  <div class="dropdown-container">
-    <a href="#">Candidate List</a>
-    <hr>
-    <a href="#">Declare Voting</a>
-    </div>
+  <a href="#contact">Candidate Details</a>
   <hr>
   <a href="#contact">Logout</a>
   <hr>
 </div>
-
-
-
-<script>
-/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-var dropdown = document.getElementsByClassName("dropdown-btn");
-var i;
-
-for (i = 0; i < dropdown.length; i++) {
-  dropdown[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var dropdownContent = this.nextElementSibling;
-    if (dropdownContent.style.display === "block") {
-      dropdownContent.style.display = "none";
-    } else {
-      dropdownContent.style.display = "block";
-    }
-  });
-}
-</script>
 
 </body>
 </html> 

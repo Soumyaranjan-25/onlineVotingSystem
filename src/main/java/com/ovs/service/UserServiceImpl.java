@@ -1,6 +1,7 @@
 package com.ovs.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,6 @@ public class UserServiceImpl implements UserService {
 		user.setApproveBy(1);
 		user.setBitstatus("false");
 		user.setRole(roleService.getRoleById(2));
-		System.out.println(user.getUserId());
 		if(user.getUserId() == null ) {
 			user.setCreatedOn(topday);
 		}
@@ -31,5 +31,15 @@ public class UserServiceImpl implements UserService {
 			user.setUpdatedOn(topday);
 		}
 		return userRepository.save(user);
+	}
+
+	@Override
+	public User getUserByUserName(String userName,String password) {
+		return userRepository.getUserByUserName(userName,password);
+	}
+
+	@Override
+	public List<User> getAllUser() {
+		return userRepository.getAllUser();
 	}
 }

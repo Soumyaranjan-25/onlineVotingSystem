@@ -17,7 +17,6 @@ public class CourseController {
 	private CourseService courseService;
 	@RequestMapping("/course")
 	public String course(Model model) {
-		System.out.println(courseService.getAllCourse());
 		model.addAttribute("courseList",courseService.getAllCourse());
 		return "course";
 	}
@@ -30,7 +29,6 @@ public class CourseController {
 	}
 	@RequestMapping("/deleteCourse")
 	public String deleteCourse(@RequestParam("courseId") Integer courseId) {
-		System.out.println("Its coming");
 		courseService.deleteCourse(courseId);
 		return "forward:/course";
 	}

@@ -74,4 +74,26 @@ public class LoginController {
 		model.addAttribute("msg","Applicant saved successfully");
 		return "login";
 	}
+	@PostMapping("/checkUser")
+	private String checkUser(@RequestParam("userName") String userName, @RequestParam("password") String password,Model model) {
+		if(userName==null || userName=="") {
+			model.addAttribute("nullUserNameMsg","Please Enter User Name");
+			return "login";
+		}
+		if(password=="") {
+			model.addAttribute("nullPasswordMsg","Please Enter password");
+			return "login";
+		}
+		User loginUser=userService.getUserByUserName(userName,password);
+		if(loginUser==null) {
+			model.addAttribute("invalidMsg","invalid credentials");
+			return "login";
+		}
+		if(loginUser.getRole().getRoleId()==1) {
+			return "adminDashBoard";
+		}
+		else {
+			return "userDashBoard";
+		}
+	}
 }
