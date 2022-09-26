@@ -21,6 +21,8 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+	<script src='https://kit.fontawesome.com/a076d05399.js'
+	crossorigin='anonymous'></script>
 </head>
 <body>
 	<div>
@@ -44,7 +46,7 @@
 		<div class="card-body">
 
 			<div id="add">
-				<form action="./saveUser" method="post" class="form-group"
+				<form action="./saveUserByAdmin" method="post" class="form-group"
 					onsubmit="" enctype="multipart/form-data">
 					<input type="hidden" name="userId" id="userId"
 						value="${updateUser.userId}">
@@ -108,7 +110,7 @@
 								onchange="getBranch()">
 								<option value="Select">Select</option>
 								<c:forEach items="${courseList}" var="course">
-									<option value="${course.courseId}">${course.courseName}</option>
+									<option value="${course.courseId}" <c:if test="${updateUser.course.courseId eq course.courseId }">selected="selected"</c:if>>${course.courseName}</option>
 
 								</c:forEach>
 							</select>
@@ -120,6 +122,11 @@
 								class="text-danger">*</span></label> <select class="form-control "
 								name="branch" id="branch" onchange="getfees()">
 								<option value="0">Select</option>
+								<c:if test="${updateUser.branchId ne null}">
+								<c:forEach items="${updateUser.course.branch}" var="branch">
+									<option value="${branch.branchId}" <c:if test="${updateUser.branchId eq branch.branchId }">selected="selected"</c:if>>${branch.branchName}</option>
+
+								</c:forEach></c:if>
 							</select>
 						</div>
 					</div>
@@ -131,7 +138,7 @@
 								class="text-danger">*</span></label> <input type="text"
 								class="form-control" name="dobb" id="dob" required="required"
 								value="
-						<fmt:formatDate pattern = "dd/mm/yyyy" value="${updateUser.dob}"/>">
+						<fmt:formatDate pattern = "dd/MM/yyyy" value="${updateUser.dob}"/>">
 						</div>
 						<div class="col-sm-4 mt-4">
 							<label class="text-primary mt-2 ml-2">Gender <span
@@ -154,11 +161,11 @@
 						<div class="col-sm-6">
 							<label class="text-primary">Address<span
 								class="text-danger">*</span></label>
-							<textarea name="address" id="address" class="form-control"></textarea>
+							<textarea name="address" id="address" class="form-control">${updateUser.address}</textarea>
 						</div>
 						<div class="col-sm-6">
 							<label class="text-primary">Remark</label>
-							<textarea name="remark" id="remark" class="form-control"></textarea>
+							<textarea name="remark" id="remark" class="form-control">${updateUser.remark}</textarea>
 						</div>
 					</div>
 
@@ -280,9 +287,9 @@
 								<td><fmt:formatDate pattern="dd/MM/yyyy"
 										value="${user.createdOn}" /></td>
 								<td><a class='fas fa-edit' style='font-size: 24px;'
-									href="./updateCourse?courseId=${course.courseId}"></a></td>
+									href="./updateUserByAdmin?userId=${user.userId}"></a></td>
 								<td><a class='fas fa-trash' style='font-size: 24px'
-									href="./deleteCourse?courseId=${course.courseId}"></a></td>
+									href="./deleteUserByAdmin?userId=${user.userId}"></a></td>
 							</tr>
 						</c:forEach>
 					</tbody>

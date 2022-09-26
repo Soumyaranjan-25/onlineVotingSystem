@@ -70,6 +70,7 @@ public class LoginController {
 		user.setDob(birthDate);
 		String path = CommonFileUpload.singleFileUplaod(idCard, "idCard");
 		user.setIdCard((path));
+		user.setCreatedByRoleId(2);
 		userService.saveUser(user);
 		model.addAttribute("msg","Applicant saved successfully");
 		return "login";

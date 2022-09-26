@@ -81,6 +81,9 @@ public class User implements Serializable {
 	@Column(name="created_on")
 	private Date createdOn;
 	
+	@Column(name="created_by_role_id")
+	private Integer createdByRoleId;
+	
 	@Column(name="updated_on")
 	private Date updatedOn;
 	

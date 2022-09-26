@@ -13,33 +13,45 @@ import com.ovs.repository.UserRepository;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private RoleService roleService;
 
 	@Override
 	public User saveUser(User user) {
-		Date topday=new Date();
-		user.setApproveStatus(0);
-		user.setApproveBy(1);
+		Date topday = new Date();
+		if (user.getCreatedByRoleId() == 1) {
+			user.setApproveStatus(1);
+		} else {
+			user.setApproveStatus(0);
+		}
 		user.setBitstatus("false");
 		user.setRole(roleService.getRoleById(2));
-		if(user.getUserId() == null ) {
+		if (user.getUserId() == null) {
 			user.setCreatedOn(topday);
-		}
-		else {
+		} else {
 			user.setUpdatedOn(topday);
 		}
 		return userRepository.save(user);
 	}
 
 	@Override
-	public User getUserByUserName(String userName,String password) {
-		return userRepository.getUserByUserName(userName,password);
+	public User getUserByUserName(String userName, String password) {
+		return userRepository.getUserByUserName(userName, password);
 	}
 
 	@Override
 	public List<User> getAllUser() {
 		return userRepository.getAllUser();
+	}
+
+	@Override
+	public List<User> getAllUserByAdmin() {
+		return userRepository.getAllUserByAdmin();
+	}
+
+	@Override
+	public User getUserByUserId(Integer userId) {
+		return userRepository.getUserByUserId(userId);
 	}
 }
