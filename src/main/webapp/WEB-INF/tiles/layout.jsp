@@ -17,7 +17,7 @@
 
 .menu {
 	float: left; 
-	padding: 10px;
+	padding: 20px;
     width: 25%;
 }
 

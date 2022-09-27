@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 	private RoleService roleService;
 
 	@Override
-	public User saveUser(User user) {
+	public User saveUser(User user, User previousUser) {
 		Date topday = new Date();
 		if (user.getCreatedByRoleId() == 1) {
 			user.setApproveStatus(1);
@@ -31,6 +31,14 @@ public class UserServiceImpl implements UserService {
 			user.setCreatedOn(topday);
 		} else {
 			user.setUpdatedOn(topday);
+		}
+		if (previousUser != null) {
+			if (user.getCreatedOn() == null) {
+				user.setCreatedOn(previousUser.getCreatedOn());
+			}
+			if (user.getUpdatedOn() == null) {
+				user.setUpdatedOn(previousUser.getUpdatedOn());
+			}
 		}
 		return userRepository.save(user);
 	}
@@ -53,5 +61,36 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUserByUserId(Integer userId) {
 		return userRepository.getUserByUserId(userId);
+	}
+
+	@Override
+	public void deleteByUserId(Integer userId) {
+		userRepository.deleteByUserId(userId);
+
+	}
+
+	@Override
+	public List<User> getUserByApproveStatus(Integer approveStatus) {
+		return userRepository.getUserByApproveStatus(approveStatus);
+	}
+
+	@Override
+	public void saveUser(User user) {
+		Date topday = new Date();
+		if (user.getCreatedByRoleId() == 1) {
+			user.setApproveStatus(1);
+		} else {
+			user.setApproveStatus(0);
+		}
+		user.setBitstatus("false");
+		user.setRole(roleService.getRoleById(2));
+		if (user.getUserId() == null) {
+			user.setCreatedOn(topday);
+		} else {
+			user.setUpdatedOn(topday);
+		}
+
+		userRepository.save(user);
+
 	}
 }

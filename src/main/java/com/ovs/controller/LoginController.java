@@ -64,7 +64,7 @@ public class LoginController {
 		pw.print(t);
 	}
 	
-	@PostMapping("/saveUser")
+	@PostMapping("/saveUserbySingUp")
 	public String saveUser(@ModelAttribute User user,@RequestParam("dobb") String dob,@RequestParam("studenIidCard") MultipartFile idCard,Model model) throws ParseException, IOException {
 		Date birthDate=new SimpleDateFormat("dd/MM/yyyy").parse(dob);
 		user.setDob(birthDate);
@@ -97,4 +97,5 @@ public class LoginController {
 			return "userDashBoard";
 		}
 	}
+	
 }

@@ -2,7 +2,10 @@ package com.ovs.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -20,5 +23,16 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query("FROM User where userId=:userId")
 	User getUserByUserId(Integer userId);
+	
+	@Query("select idCard FROM User where userId=:userId")
+	String getUseridCardByUserId(Integer userId);
+	
+	@Transactional
+	@Modifying
+	@Query("UPDATE User set bitstatus='true' where userId=:userId")
+	void deleteByUserId(Integer userId);
+
+	@Query("FROM User where bitstatus='false' and approveStatus=:approveStatus")
+	List<User> getUserByApproveStatus(Integer approveStatus);
 
 }

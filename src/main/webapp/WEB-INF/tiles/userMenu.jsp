@@ -87,11 +87,13 @@ body {
   <a href="#about">DashBoard</a>
   <hr>
   
-  <a href="#clients">User Details</a>
+  <a href="./userDetailsByUser">User Details</a>
   <hr>
-  <a href="#contact">Candidate Details</a>
+  <a href="./candidateApply">Candidate Apply</a>
   <hr>
-  <a href="#contact">Logout</a>
+   <a href="./voteToCandidate">Vote To Candidate</a>
+  <hr>
+  <a href="./login">Logout</a>
   <hr>
 </div>
 

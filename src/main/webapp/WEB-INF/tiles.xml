@@ -41,13 +41,33 @@
 	</definition>
 	
 	<definition name="addUserByAdmin" extends="base.definitionAdmin">
-		<put-attribute name="title" value="addUserByAdmin page" />
+		<put-attribute name="title" value="addUser page" />
 		<put-attribute name="body" value="/WEB-INF/jsp/addUserByAdmin.jsp" />
+	</definition>
+	
+	<definition name="userListByAdmin" extends="base.definitionAdmin">
+		<put-attribute name="title" value="userList page" />
+		<put-attribute name="body" value="/WEB-INF/jsp/userListByAdmin.jsp" />
 	</definition>
 	
 	<definition name="userDashBoard" extends="base.definitionUser">
 		<put-attribute name="title" value="dashBoard page" />
 		<put-attribute name="body" value="/WEB-INF/jsp/userDashBoard.jsp" />
+	</definition>
+	
+	<definition name="userDetailsByUser" extends="base.definitionUser">
+		<put-attribute name="title" value="userDeatails page" />
+		<put-attribute name="body" value="/WEB-INF/jsp/userDetailsByUser.jsp" />
+	</definition>
+	
+	<definition name="candidateApply" extends="base.definitionUser">
+		<put-attribute name="title" value="candidateApply page" />
+		<put-attribute name="body" value="/WEB-INF/jsp/candidateApply.jsp" />
+	</definition>
+	
+	<definition name="voteToCandidate" extends="base.definitionUser">
+		<put-attribute name="title" value="voteToCandidate page" />
+		<put-attribute name="body" value="/WEB-INF/jsp/voteToCandidate.jsp" />
 	</definition>
 
 </tiles-definitions>

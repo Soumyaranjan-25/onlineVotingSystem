@@ -102,16 +102,18 @@ body {
   <div class="dropdown-container">
     <a href="./addUserByAdmin">Add User</a>
     <hr>
-    <a href=".userList">User List</a>
+    <a href="./userListByAdmin">User List</a>
     </div>
   <hr>
    <button class="dropdown-btn">Manage Voting 
     <i class="fa fa-caret-down"></i>
   </button>
   <div class="dropdown-container">
-    <a href="#">Candidate List</a>
+    <a href="#">Voting Control</a>
     <hr>
-    <a href="#">Declare Voting</a>
+    <a href="#">Candidate Approved</a>
+    <hr>
+    <a href="#">View Voting Status</a>
     </div>
   <hr>
   <a href="#contact">Logout</a>

@@ -152,7 +152,7 @@
 							<div class="form-group">
 								<label class="text-primary">Upload Student ID card<span
 									class="text-danger">*</span></label> <input type="file"
-									class="form-control" name="studenIidCard" id="studenIidCard">
+									class="form-control" name="studenIidCard" id="studenIidCard" value="file my">
 							</div>
 						</div>
 					</div>
@@ -215,8 +215,6 @@
 								class="form-control" name="searchEmail" id="searchEmail" required="required"
 								value="${updateUser.email}">
 						</div>
-
-
 
 					</div>
 					<div class="row">
@@ -283,7 +281,8 @@
 								<td>${user.email}</td>
 								<td>${user.gender}</td>
 								<td>${user.remark}</td>
-								
+								<td><a
+									href="/downloadFile?userId=${user.userId}">${user.idCard}</a></td>
 								<td><fmt:formatDate pattern="dd/MM/yyyy"
 										value="${user.createdOn}" /></td>
 								<td><a class='fas fa-edit' style='font-size: 24px;'
@@ -329,6 +328,7 @@
 			$('#addId').addClass("active");
 			$('#viewId').removeClass("active");
 		}
+		
 		function openView() {
 			$('#view').show();
 			$('#add').hide();

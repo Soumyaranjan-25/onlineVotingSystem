@@ -26,7 +26,7 @@
 	<div class="container border">
 		<div class="display-4  text-danger text-center mt-5">Student
 			Resistration Page</div>
-		<form action="./saveUser" method="post" class="form-group" onsubmit="" enctype="multipart/form-data">
+		<form action="./saveUserbySingUp" method="post" class="form-group" onsubmit="" enctype="multipart/form-data">
 			<input type="hidden" name="userId" id="userId"
 				value="${updateUser.userId}">
 			<div class="row">
