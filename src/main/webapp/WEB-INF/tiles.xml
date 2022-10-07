@@ -50,6 +50,21 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/userListByAdmin.jsp" />
 	</definition>
 	
+	<definition name="votingControl" extends="base.definitionAdmin">
+		<put-attribute name="title" value="votingControl page" />
+		<put-attribute name="body" value="/WEB-INF/jsp/votingControl.jsp" />
+	</definition>
+	
+	<definition name="candidateApproved" extends="base.definitionAdmin">
+		<put-attribute name="title" value="candidateApproved page" />
+		<put-attribute name="body" value="/WEB-INF/jsp/candidateApproved.jsp" />
+	</definition>
+	
+	<definition name="votingStatus" extends="base.definitionAdmin">
+		<put-attribute name="title" value="votingStatus page" />
+		<put-attribute name="body" value="/WEB-INF/jsp/votingStatus.jsp" />
+	</definition>
+	
 	<definition name="userDashBoard" extends="base.definitionUser">
 		<put-attribute name="title" value="dashBoard page" />
 		<put-attribute name="body" value="/WEB-INF/jsp/userDashBoard.jsp" />

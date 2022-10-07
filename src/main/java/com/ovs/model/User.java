@@ -19,7 +19,6 @@ import lombok.Setter;
 import lombok.ToString;
 @Getter
 @Setter
-@ToString
 @Entity
 @Table(name="t_ov_user")
 public class User implements Serializable {

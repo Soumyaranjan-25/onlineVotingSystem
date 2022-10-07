@@ -109,11 +109,11 @@ body {
     <i class="fa fa-caret-down"></i>
   </button>
   <div class="dropdown-container">
-    <a href="#">Voting Control</a>
+    <a href="./votingControl">Voting Control</a>
     <hr>
-    <a href="#">Candidate Approved</a>
+    <a href="./candidateApproved">Candidate Approved</a>
     <hr>
-    <a href="#">View Voting Status</a>
+    <a href="./votingStatus">View Voting Status</a>
     </div>
   <hr>
   <a href="#contact">Logout</a>

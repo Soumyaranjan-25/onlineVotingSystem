@@ -20,6 +20,7 @@ import com.ovs.model.User;
 import com.ovs.repository.UserRepository;
 import com.ovs.service.BranchService;
 import com.ovs.service.CourseService;
+import com.ovs.service.PostService;
 import com.ovs.service.UserService;
 import com.ovs.utils.CommonFileUpload;
 
@@ -36,6 +37,8 @@ public class AdminController {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	
 
 	@RequestMapping("/addUserByAdmin")
 	public String addUserByAdmin(Model model) {
@@ -113,6 +116,8 @@ public class AdminController {
 		userRepository.save(user);
 		return "forward:/userListByAdmin";
 	}
+	
+	
 	
 	
 }
