@@ -19,6 +19,7 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	@Modifying
 	@Query("Update Course set bitstatus='true' where courseId=:courseId")
 	void deleteCourse(Integer  courseId);
+	
 	@Query("From Course where bitstatus='false'")
 	List<Course> getAllCourse();
 

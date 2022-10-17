@@ -15,6 +15,7 @@ import com.ovs.service.CourseService;
 public class CourseController {
 	@Autowired
 	private CourseService courseService;
+	
 	@RequestMapping("/course")
 	public String course(Model model) {
 		model.addAttribute("courseList",courseService.getAllCourse());

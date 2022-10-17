@@ -8,4 +8,10 @@ public interface BranchService {
 
 	List<Branch> getAllBranch();
 
+	void saveBranch(Branch branch);
+
+	Branch getBranchById(Integer branchId);
+
+	void deleteBranch(Integer branchId);
+
 }
