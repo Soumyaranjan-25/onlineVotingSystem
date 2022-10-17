@@ -1,6 +1,7 @@
 package com.ovs.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class ElectionServiceImpl implements ElectionService {
 	@Override
 	public Election getElection() {
 		List<Election> activeElection =electionRepository.getActiveElection();
-		if()
+//		if()
 		return electionRepository.getActiveElection().get(0);
 	}
 
