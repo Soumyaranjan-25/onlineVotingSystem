@@ -5,12 +5,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ovs.service.ElectionService;
 import com.ovs.service.UserService;
 
 @Controller
 public class UserController {
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ElectionService electionService;
 	
 	@RequestMapping("/userDetailsByUser")
 	public String userDetailsByUser(Model model) {
@@ -20,7 +24,7 @@ public class UserController {
 	
 	@RequestMapping("/candidateApply")
 	public String candidateApply(Model model) {
-		model.addAttribute("userList",userService.getUserByApproveStatus(1));
+		model.addAttribute("onGoingElection",electionService.getElection());
 		return "candidateApply";
 	}
 	

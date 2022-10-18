@@ -24,8 +24,12 @@ public class ElectionServiceImpl implements ElectionService {
 	@Override
 	public Election getElection() {
 		List<Election> activeElection =electionRepository.getActiveElection();
-//		if()
-		return electionRepository.getActiveElection().get(0);
+		if(activeElection.size() != 0) {
+			return activeElection.get(0);
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override

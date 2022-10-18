@@ -43,10 +43,10 @@
 				<div class="card">
 					<div class="card-header">
 						<ul class="nav nav-tabs card-header-tabs">
-							<li class="nav-item"><a class="nav-link active" id="startId"
+							<li class="nav-item"><a class="nav-link active" id="addId"
+								onclick="openAdd()">Add</a></li>
+							<li class="nav-item"><a class="nav-link" id="startId"
 								onclick="openStart()">Start</a></li>
-							<li class="nav-item"><a class="nav-link" id="viewId"
-								onclick="openView()">View</a></li>
 							<li class="nav-item"><a class="nav-link" id="endId"
 								onclick="openEnd()">End</a></li>
 						</ul>
@@ -58,7 +58,7 @@
 		</div>
 		<div class="card-body">
 
-			<div id="start">
+			<div id="add">
 				<h4>Declare Post</h4>
 				<div class="container border">
 					<form class="form-group" action="./savePostDetails" method="post">
@@ -106,10 +106,17 @@
 					</form>
 				</div>
 			</div>
-			<div id="view">
+			<div id="start">
+				<c:if test="${onGoingElection ne NULL}">
+					<h4 class="text-danger" align="center">
+						<b>${onGoingElection.electionName } is going on</b>
+					</h4>
+				</c:if>
+				<c:if test="${onGoingElection eq NULL}">
+					<h3 class="card-title" align="center">Election Name</h3>
+				</c:if>
 
-				<h3 class="card-title" align="center">${postDetailsList.get(0).election.electionName}</h3>
-				<div class="table-container mt-4">
+				<div class="table-container mt-4 ">
 					<table class="table table-bordered" id="dataTable">
 						<thead>
 							<tr>
@@ -117,7 +124,10 @@
 								<th>Post Name</th>
 								<th>No Of Candidate</th>
 								<th>Remark</th>
-								<th colspan="2">Action</th>
+
+								<c:if test="${onGoingElection eq NULL}">
+									<th colspan="2">Action</th>
+								</c:if>
 							</tr>
 						</thead>
 						<tbody>
@@ -128,58 +138,66 @@
 									<td>${postDetails.post.postName}</td>
 									<td>${postDetails.noOfCandidate}</td>
 									<td>${postDetails.remark}</td>
-									<td><a class='fas fa-edit' style='font-size: 24px;'
-										href="./updatepostDetails?postDetailsId=${postDetails.postDetailsId}"></a></td>
-									<td><a class='fas fa-trash' style='font-size: 24px'
-										href="./deletepostDetails?postDetailsId=${postDetails.postDetailsId}"></a></td>
+									<c:if test="${onGoingElection eq NULL}">
+										<td><a class='fas fa-edit' style='font-size: 24px;'
+											href="./updatepostDetails?postDetailsId=${postDetails.postDetailsId}"></a></td>
+										<td><a class='fas fa-trash' style='font-size: 24px'
+											href="./deletepostDetails?postDetailsId=${postDetails.postDetailsId}"></a></td>
+									</c:if>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
 				</div>
 				<hr>
-				<h4>Start Election</h4>
-				<div class="StartContainer border">
-					<form class="form-group" action="./electionDetails" method="post">
-						<div class="row">
-							<div class="col-sm-6">
-								<label class="form-label text-info">Election Name<span
-									class="text-danger">*</span> :
-								</label> <input type="text" id="electionName" name="electionName"
-									class="form-control" autocomplete="off">
-							</div>
-							<div class="col-sm-6">
-								<label class="form-label text-info">Election Year<span
-									class="text-danger">*</span> :
-								</label> <select class="form-control" name="electionYear"
-									id="electionYear">
-									<option value="0">Select</option>
-									<option value="2019-20">2019-20</option>
-									<option value="2020-21">2020-21</option>
-									<option value="2021-22">2021-22</option>
-									<option value="2022-23">2022-23</option>
-									<option value="2023-24">2023-24</option>
-									<option value="2024-25">2024-25</option>
-									<option value="2025-26">2025-26</option>
+				<c:if test="${onGoingElection eq NULL}">
+					<h4>Start Election</h4>
+					<div class="StartContainer border">
 
-								</select>
+						<form class="form-group" action="./electionDetails" method="post">
+							<div class="row">
+								<div class="col-sm-6">
+									<label class="form-label text-info">Election Name<span
+										class="text-danger">*</span> :
+									</label> <input type="text" id="electionName" name="electionName"
+										class="form-control" autocomplete="off">
+								</div>
+								<div class="col-sm-6">
+									<label class="form-label text-info">Election Year<span
+										class="text-danger">*</span> :
+									</label> <select class="form-control" name="electionYear"
+										id="electionYear">
+										<option value="0">Select</option>
+										<option value="2019-20">2019-20</option>
+										<option value="2020-21">2020-21</option>
+										<option value="2021-22">2021-22</option>
+										<option value="2022-23">2022-23</option>
+										<option value="2023-24">2023-24</option>
+										<option value="2024-25">2024-25</option>
+										<option value="2025-26">2025-26</option>
+
+									</select>
+								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6">
-								<label class="form-label text-info">Remarks : </label>
-								<textarea id="remark" name="remark" rows="2"
-									class="form-control" autocomplete="off">
+							<div class="row">
+								<div class="col-sm-6">
+									<label class="form-label text-info">Remarks : </label>
+									<textarea id="remark" name="remark" rows="2"
+										class="form-control" autocomplete="off">
 								</textarea>
-							</div>
-							<div class="col-sm-2"></div>
-							<div class="col-sm-3 mt-5">
-								<button class="btn btn-success">Start</button>
+								</div>
+								<div class="col-sm-2"></div>
+								<div class="col-sm-3 mt-5">
+									<button class="btn btn-success">Start</button>
 
+								</div>
 							</div>
-						</div>
-					</form>
-				</div>
+						</form>
+					</div>
+				</c:if>
+
+
+
 			</div>
 			<div id="end">
 				<h4>End Election</h4>
@@ -196,7 +214,8 @@
 						<div class="row ml-2">
 							<div class="col-sm-6 ">
 								<label class="form-label text-info">Election Year : </label> <input
-									type="text" value="${onGoingElection.electionYear }" class="form-control" readonly>
+									type="text" value="${onGoingElection.electionYear }"
+									class="form-control" readonly>
 							</div>
 						</div>
 						<div class="row ml-2">
@@ -214,38 +233,38 @@
 	</div>
 	<script>
 		$(document).ready(function() {
-			$('#start').show();
-			$('#view').hide();
+			$('#add').show();
+			$('#start').hide();
 			$('#end').hide();
 		});
 
-		function openStart() {
-			$('#view').hide();
-			$('#start').show();
+		function openAdd() {
+			$('#start').hide();
+			$('#add').show();
 			$('#end').hide();
 
-			$('#startId').addClass("active");
-			$('#viewId').removeClass("active");
+			$('#addId').addClass("active");
+			$('#startId').removeClass("active");
 			$('#endId').removeClass("active");
 		}
-		function openView() {
-			$('#view').show();
-			$('#start').hide();
+		function openStart() {
+			$('#start').show();
+			$('#add').hide();
 			$('#end').hide();
 
-			$('#startId').removeClass("active");
-			$('#viewId').addClass("active");
+			$('#addId').removeClass("active");
+			$('#startId').addClass("active");
 			$('#endId').removeClass("active");
 		}
 
 		function openEnd() {
-			$('#view').hide();
-			$('#end').show();
 			$('#start').hide();
+			$('#end').show();
+			$('#add').hide();
 
 			$('#endId').addClass("active");
-			$('#viewId').removeClass("active");
 			$('#startId').removeClass("active");
+			$('#addId').removeClass("active");
 		}
 
 		function startElection() {
