@@ -41,4 +41,9 @@ public class ElectionServiceImpl implements ElectionService {
 	public void deleteElection(Integer electionId) {
 		electionRepository.deleteElection(electionId);
 	}
+
+	@Override
+	public Election getElectionById(Integer electionId) {
+		return electionRepository.getElectionById(electionId);
+	}
 }

@@ -9,4 +9,6 @@ public interface CandidateApplyDetailsService {
 
 	CandidateApplyDetails getCandidateDetailsByUser(User loginUser);
 
+	void deleteAppliedPost(Integer candidateApplyId);
+
 }

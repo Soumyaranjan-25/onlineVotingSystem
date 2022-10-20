@@ -12,6 +12,8 @@
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'
+	crossorigin='anonymous'></script>
 </head>
 <body>
 	<c:if test="${ onGoingElection eq NULL}">
@@ -34,24 +36,30 @@
 							<th>S.No</th>
 							<th>Post Name</th>
 							<th>Apply On</th>
-							<th>Action</th>
+							<c:if test="${appliedPost.candidateStatus eq 0}">
+								<th>Action</th>
+							</c:if>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${onGoingElection.postDetails}"
-							var="postDetails" varStatus="count">
-							<tr>
-								<td>${count.count}</td>
-								<td>${postDetails.post.postName}</td>
-								<td>${postDetails.noOfCandidate}</td>
-								<td>${postDetails.remark}</td>
-								
-							</tr>
-						</c:forEach>
+						<tr>
+							<td>1</td>
+							<td>${appliedPost.postId.postName}</td>
+							<td>${appliedPost.applyOn}</td>
+							<c:if test="${appliedPost.candidateStatus eq 0}">
+								<td><a class='fas fa-trash' style='font-size: 24px'
+									href="./deleteAppliedPost?candidateApplyId=${appliedPost.candidateApplyId}"></a></td>
+							</c:if>
+
+
+						</tr>
 					</tbody>
 				</table>
 			</div>
 		</c:if>
+		<h4 class="mt-5">
+			<b>Election Post Details</b>
+		</h4>
 		<div class="table-container mt-4">
 			<table class="table table-bordered" id="dataTable">
 				<thead>
@@ -60,7 +68,9 @@
 						<th>Post Name</th>
 						<th>No Of Candidate</th>
 						<th>Remark</th>
-						<th>Action</th>
+						<c:if test="${appliedPost eq NULL }">
+							<th>Action</th>
+						</c:if>
 					</tr>
 				</thead>
 				<tbody>
@@ -71,8 +81,11 @@
 							<td>${postDetails.post.postName}</td>
 							<td>${postDetails.noOfCandidate}</td>
 							<td>${postDetails.remark}</td>
-							<td><a href="./applyForPost?postId=${postDetails.post.postId}"
-								class="btn btn-success">Apply</a></td>
+							<c:if test="${appliedPost eq NULL }">
+								<td><a
+									href="./applyForPost?postId=${postDetails.post.postId}&electionId=${onGoingElection.electionId}"
+									class="btn btn-success">Apply</a></td>
+							</c:if>
 						</tr>
 					</c:forEach>
 				</tbody>

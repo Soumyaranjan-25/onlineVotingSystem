@@ -28,13 +28,17 @@ public class CandidateApplyDetails implements Serializable {
 	@Column(name="candidate_apply_id")
 	private Integer candidateApplyId;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="user_id")
 	private User userId;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="post_id")
 	private Post postId;
+	
+	@ManyToOne
+	@JoinColumn(name="election_id")
+	private Election election;
 	
 	@Column(name="bitstatus")
 	private String bitstatus;

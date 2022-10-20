@@ -91,6 +91,7 @@ public class VotingController {
 		model.addAttribute("onGoingElection",electionService.getElection());
 		User loginUser=(User) httpSession.getAttribute("loginUser");
 		CandidateApplyDetails appliedPost=candidateApplyDetailsService.getCandidateDetailsByUser(loginUser);
+		model.addAttribute("appliedPost",appliedPost);
 		System.out.println(appliedPost);
 		return "candidateApply";
 	}
@@ -114,7 +115,7 @@ public class VotingController {
 	}
 	
 	@RequestMapping("/applyForPost")
-	public String applyForPost(@RequestParam("postId") Integer postId,Model model) {
+	public String applyForPost(@RequestParam("postId") Integer postId,@RequestParam("electionId") Integer electionId,Model model) {
 		User loginUser=(User) httpSession.getAttribute("loginUser");
 		CandidateApplyDetails candidateApplyDetails=new CandidateApplyDetails();
 		Post post=postService.getPostById(postId);
@@ -123,8 +124,15 @@ public class VotingController {
 		candidateApplyDetails.setApplyOn(new Date());
 		candidateApplyDetails.setBitstatus("false");
 		candidateApplyDetails.setCandidateStatus(0);
+		candidateApplyDetails.setElection(electionService.getElectionById(electionId));
 		candidateApplyDetailsService.saveCandidateApply(candidateApplyDetails);
-//		model.addAttribute("appliedPost",appliedPost);
-		return "forward :/candidateApply";
+		return "forward:/candidateApply";
 	}
+	
+	@GetMapping("/deleteAppliedPost")
+	public String deleteAppliedPost(@RequestParam("candidateApplyId") Integer candidateApplyId,Model model) {
+		candidateApplyDetailsService.deleteAppliedPost(candidateApplyId);
+		return "forward:/candidateApply";
+	}
+	
 }

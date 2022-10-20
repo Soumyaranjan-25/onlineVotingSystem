@@ -12,4 +12,6 @@ public interface ElectionService {
 
 	void deleteElection(Integer electionId);
 
+	Election getElectionById(Integer electionId);
+
 }

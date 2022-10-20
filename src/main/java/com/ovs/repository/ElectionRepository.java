@@ -24,4 +24,7 @@ public interface ElectionRepository extends JpaRepository<Election, Integer> {
 	@Query("Update Election set bitstatus='true' where electionId=:electionId")
 	void deleteElection(Integer electionId);
 
+	@Query("From Election where electionId=:electionId and bitstatus='false'")
+	Election getElectionById(Integer electionId);
+
 }

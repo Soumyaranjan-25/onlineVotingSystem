@@ -23,5 +23,10 @@ public class CandidateApplyDetailsServiceImpl implements CandidateApplyDetailsSe
 		return candidateApplyDetailsRepository.getCandidateDetailsByUser(loginUser);
 	}
 
+	@Override
+	public void deleteAppliedPost(Integer candidateApplyId) {
+		candidateApplyDetailsRepository.deleteAppliedPost(candidateApplyId);		
+	}
+
 	
 }
