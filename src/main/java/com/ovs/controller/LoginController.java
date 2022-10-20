@@ -8,6 +8,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -37,6 +38,9 @@ public class LoginController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private HttpSession httpSession;
 
 	@GetMapping("/login")
 	public String login() {
@@ -86,6 +90,7 @@ public class LoginController {
 			return "login";
 		}
 		User loginUser=userService.getUserByUserName(userName,password);
+		httpSession.setAttribute("loginUser", loginUser);
 		if(loginUser==null) {
 			model.addAttribute("invalidMsg","invalid credentials");
 			return "login";

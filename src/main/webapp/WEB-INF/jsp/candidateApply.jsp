@@ -23,6 +23,35 @@
 		<h2 align="center" class="text-danger">
 			<b> ${ onGoingElection.electionName}</b>
 		</h2>
+		<c:if test="${appliedPost ne NULL }">
+			<h4>
+				<b>Applied Post</b>
+			</h4>
+			<div class="table-container mt-4">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>S.No</th>
+							<th>Post Name</th>
+							<th>Apply On</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${onGoingElection.postDetails}"
+							var="postDetails" varStatus="count">
+							<tr>
+								<td>${count.count}</td>
+								<td>${postDetails.post.postName}</td>
+								<td>${postDetails.noOfCandidate}</td>
+								<td>${postDetails.remark}</td>
+								
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</c:if>
 		<div class="table-container mt-4">
 			<table class="table table-bordered" id="dataTable">
 				<thead>
@@ -42,8 +71,8 @@
 							<td>${postDetails.post.postName}</td>
 							<td>${postDetails.noOfCandidate}</td>
 							<td>${postDetails.remark}</td>
-							<td><a
-								href="./updatepostDetails?postDetailsId=${postDetails.postDetailsId}" class="btn btn-success">Apply</a></td>
+							<td><a href="./applyForPost?postId=${postDetails.post.postId}"
+								class="btn btn-success">Apply</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
