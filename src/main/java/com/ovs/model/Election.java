@@ -42,4 +42,7 @@ public class Election implements Serializable {
 	private Date endDate;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "election")
     private List<PostDetails> postDetails;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "election")
+    private List<CandidateApplyDetails> candidateApplyDetails;
 }

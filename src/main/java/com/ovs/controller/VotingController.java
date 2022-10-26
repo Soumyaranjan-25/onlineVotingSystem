@@ -83,6 +83,7 @@ public class VotingController {
 		Integer electionId=electionService.getElectionIdByElectionName(electionName);
 		electionService.deleteElection(electionId);
 		postDetailsService.deletepostDetailsByElectionId(electionId);
+		candidateApplyDetailsService.deleteCandidateDetailsByElectionId(electionId);
 		return "forward:/votingControl";
 	}
 	
@@ -134,8 +135,21 @@ public class VotingController {
 	@RequestMapping("/candidateApproved")
 	public String candidateApprovePage(Model model) {
 		model.addAttribute("ongoinElection",electionService.getOngoingElection());
-		
+		model.addAttribute("candidateApplyDetailsList",candidateApplyDetailsService.getCandidateApplyDetails());
+		model.addAttribute("ApprovedcandidateApplyDetailsList",candidateApplyDetailsService.getApprovedCandidateApplyDetails());
 		return "candidateApproved";
 	}
+	
+	@GetMapping("/updateCandidateApproved")
+	public String updateCandidateApproved(@RequestParam("candidateApplyId") Integer candidateApplyId) {
+		candidateApplyDetailsService.candidateApproved(candidateApplyId);
+		return "forward:/candidateApproved";
+	}
+	@GetMapping("/candidateDiscard")
+	public String candidateDiscard(@RequestParam("candidateApplyId") Integer candidateApplyId,Model model) {
+		candidateApplyDetailsService.candidateDiscard(candidateApplyId);
+		return "forward:/candidateApproved";
+	}
+	
 	
 }

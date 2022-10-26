@@ -1,5 +1,6 @@
 package com.ovs.controller;
 
+import java.io.FileOutputStream;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -14,6 +15,7 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+//import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -87,17 +89,16 @@ public class UserController {
 			row.createCell(8).setCellValue(i.getGender());
 			row.createCell(9).setCellValue(i.getRemark());
 			row.createCell(10).setCellValue(i.getIdCard());
-			
 
 		}
 		for(int i=0;i<columnHeadings.length;i++) {
 			sh.autoSizeColumn(i);
 		}
 //		Sheet sh2=workBook.createSheet("Second sheet");
-		
-		ServletOutputStream fileOut=response.getOutputStream();
+		FileOutputStream fileOut=new FileOutputStream("D:/my file/userList.xlsx");
+//		ServletOutputStream fileOut=response.getOutputStream();
 		workBook.write(fileOut);
-		fileOut.close();
+//		fileOut.close();
 		workBook.close();
 		System.out.println("Completed");
 		

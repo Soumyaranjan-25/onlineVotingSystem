@@ -1,5 +1,7 @@
 package com.ovs.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,32 @@ public class CandidateApplyDetailsServiceImpl implements CandidateApplyDetailsSe
 	@Override
 	public void deleteAppliedPost(Integer candidateApplyId) {
 		candidateApplyDetailsRepository.deleteAppliedPost(candidateApplyId);		
+	}
+
+	@Override
+	public void candidateApproved(Integer candidateApplyId) {
+		candidateApplyDetailsRepository.updateCandidateStatus(candidateApplyId,1);
+	}
+
+	@Override
+	public void candidateDiscard(Integer candidateApplyId) {
+		candidateApplyDetailsRepository.updateCandidateStatus(candidateApplyId,2);
+		candidateApplyDetailsRepository.deleteAppliedPost(candidateApplyId);
+	}
+
+	@Override
+	public List<CandidateApplyDetails> getCandidateApplyDetails() {
+		return candidateApplyDetailsRepository.getCandidateApplyDetails();
+	}
+
+	@Override
+	public List<CandidateApplyDetails> getApprovedCandidateApplyDetails() {
+		return candidateApplyDetailsRepository.getApprovedCandidateApplyDetails();
+	}
+
+	@Override
+	public void deleteCandidateDetailsByElectionId(Integer electionId) {
+		candidateApplyDetailsRepository.deleteCandidateDetailsByElectionId(electionId);
 	}
 
 	

@@ -48,16 +48,96 @@
 
 			<div id="add">
 
-				<c:forEach items="${ongoinElection.postDetails }" var="postDetails" varStatus="count">
+				<c:forEach items="${ongoinElection.postDetails }" var="postDetails"
+					varStatus="count">
 					<div class="container border">
-						<h4><b>${postDetails.post.postName }</b></h4>
-						<hr>
-						
+						<h4>
+							<b>${postDetails.post.postName }</b>
+						</h4>
+						<div class="table-container mt-4">
+							<table class="table table-bordered" id="dataTable">
+								<thead>
+									<tr>
+										<th>S.No</th>
+										<th>User Name</th>
+										<th>Regd No</th>
+										<th>Course</th>
+										<th>Branch</th>
+										<th>Mobile No</th>
+										<th>Email</th>
+										<th>Student Id Card</th>
+										<th colspan="2">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${candidateApplyDetailsList}"
+										var="candidateApplyDetails" varStatus="count">
+										<c:if
+											test="${candidateApplyDetails.postId.postId eq  postDetails.post.postId}">
+											<tr>
+												<td>${count.count}</td>
+												<td>${candidateApplyDetails.userId.userName}</td>
+												<td>${candidateApplyDetails.userId.regdNo}</td>
+												<td>${candidateApplyDetails.userId.course.courseName}</td>
+												<td>${candidateApplyDetails.userId.branch.branchName}</td>
+												<td>${candidateApplyDetails.userId.mobileNo}</td>
+												<td>${candidateApplyDetails.userId.email}</td>
+												<td><a
+													href="/downloadFile?userId=${candidateApplyDetails.userId.userId}">${candidateApplyDetails.userId.idCard}</a></td>
+												<td><a class="btn btn-success" style='font-size: 15px;'
+													href="./updateCandidateApproved?candidateApplyId=${candidateApplyDetails.candidateApplyId}">Approve</a></td>
+												<td><a class='btn btn-warning' style='font-size: 15px'
+													href="./candidateDiscard?candidateApplyId=${candidateApplyDetails.candidateApplyId}">Discard</a></td>
+											</tr>
+										</c:if>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
 					</div>
+					<hr>
 				</c:forEach>
 
 			</div>
+			<div id="view">
 
+				<h3 class="card-title">Approved Candidate Details</h3>
+				<div class="table-container mt-4">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>S.No</th>
+								<th>PostName</th>
+								<th>User Name</th>
+								<th>Regd No</th>
+								<th>Course</th>
+								<th>Branch</th>
+								<th>Mobile No</th>
+								<th>Student Id Card</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${ApprovedcandidateApplyDetailsList}"
+								var="ApprovedcandidateApplyDetailsList" varStatus="count">
+								<tr>
+									<td>${count.count}</td>
+									<td>${ApprovedcandidateApplyDetailsList.postId.postName}</td>
+									<td>${ApprovedcandidateApplyDetailsList.userId.userName}</td>
+									<td>${ApprovedcandidateApplyDetailsList.userId.regdNo}</td>
+									<td>${ApprovedcandidateApplyDetailsList.userId.course.courseName}</td>
+									<td>${ApprovedcandidateApplyDetailsList.userId.branch.branchName}</td>
+									<td>${ApprovedcandidateApplyDetailsList.userId.mobileNo}</td>
+									<td><a
+										href="/downloadFile?userId=${ApprovedcandidateApplyDetailsList.userId.userId}">${ApprovedcandidateApplyDetailsList.userId.idCard}</a></td>
+									<td><a class='fas fa-trash' style='font-size: 24px'
+										href="./candidateDiscard?candidateApplyId=${ApprovedcandidateApplyDetailsList.candidateApplyId}"></a></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 	<script>
