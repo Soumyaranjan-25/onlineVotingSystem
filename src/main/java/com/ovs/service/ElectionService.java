@@ -14,4 +14,6 @@ public interface ElectionService {
 
 	Election getElectionById(Integer electionId);
 
+	Election getOngoingElection();
+
 }

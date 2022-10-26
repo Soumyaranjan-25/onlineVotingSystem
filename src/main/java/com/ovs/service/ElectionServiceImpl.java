@@ -46,4 +46,9 @@ public class ElectionServiceImpl implements ElectionService {
 	public Election getElectionById(Integer electionId) {
 		return electionRepository.getElectionById(electionId);
 	}
+
+	@Override
+	public Election getOngoingElection() {
+		return electionRepository.getOngoingElection();
+	}
 }

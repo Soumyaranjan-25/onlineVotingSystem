@@ -104,10 +104,6 @@ public class VotingController {
 	}
 	
 	
-	@RequestMapping("/candidateApproved")
-	public String candidateApproved(Model model) {
-		return "candidateApproved";
-	}
 	
 	@RequestMapping("/votingStatus")
 	public String votingStatus(Model model) {
@@ -133,6 +129,13 @@ public class VotingController {
 	public String deleteAppliedPost(@RequestParam("candidateApplyId") Integer candidateApplyId,Model model) {
 		candidateApplyDetailsService.deleteAppliedPost(candidateApplyId);
 		return "forward:/candidateApply";
+	}
+	
+	@RequestMapping("/candidateApproved")
+	public String candidateApprovePage(Model model) {
+		model.addAttribute("ongoinElection",electionService.getOngoingElection());
+		
+		return "candidateApproved";
 	}
 	
 }

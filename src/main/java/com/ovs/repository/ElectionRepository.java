@@ -27,4 +27,7 @@ public interface ElectionRepository extends JpaRepository<Election, Integer> {
 	@Query("From Election where electionId=:electionId and bitstatus='false'")
 	Election getElectionById(Integer electionId);
 
+	@Query("From Election where bitstatus='false'")
+	Election getOngoingElection();
+
 }
