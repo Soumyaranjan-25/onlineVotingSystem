@@ -83,7 +83,14 @@ public class UserServiceImpl implements UserService {
 			user.setApproveStatus(0);
 		}
 		user.setBitstatus("false");
-		user.setRole(roleService.getRoleById(2));
+		System.out.println(user.getCourse());
+		if (user.getCourse() == null) {
+			System.out.println("Coming");
+			user.setRole(roleService.getRoleById(1));
+			user.setApproveStatus(3);
+		} else {
+			user.setRole(roleService.getRoleById(2));
+		}
 		if (user.getUserId() == null) {
 			user.setCreatedOn(topday);
 		} else {

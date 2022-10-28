@@ -116,7 +116,7 @@ body {
     <a href="./votingStatus">View Voting Status</a>
     </div>
   <hr>
-  <a href="#contact">Logout</a>
+  <a href="./login">Logout</a>
   <hr>
 </div>
 

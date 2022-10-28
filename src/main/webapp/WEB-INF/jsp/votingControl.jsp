@@ -105,8 +105,6 @@
 						</div>
 					</form>
 				</div>
-			</div>
-			<div id="start">
 				<c:if test="${onGoingElection ne NULL}">
 					<h4 class="text-danger" align="center">
 						<b>${onGoingElection.electionName } is going on</b>
@@ -149,7 +147,9 @@
 						</tbody>
 					</table>
 				</div>
-				<hr>
+			</div>
+			
+			<div id="start">
 				<c:if test="${onGoingElection eq NULL}">
 					<h4>Start Election</h4>
 					<div class="StartContainer border">

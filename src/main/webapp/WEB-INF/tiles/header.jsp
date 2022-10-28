@@ -7,7 +7,7 @@
 </head>
 <header>
 <div>
-<span><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWWwt3c3b4Du-3hyJ_LDMDtQ5K6n7HBuAjuQ&usqp=CAU" style="width : 90% " height="100" align="right"></span>
+<span><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWWwt3c3b4Du-3hyJ_LDMDtQ5K6n7HBuAjuQ&usqp=CAU" style="width : 85% " height="100" align="right"></span>
 
 </div>
 </header>

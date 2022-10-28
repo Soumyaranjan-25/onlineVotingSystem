@@ -24,21 +24,19 @@
 </head>
 <body>
 	<div class="container border">
-		<div class="display-4  text-danger text-center mt-5">Student
+		<div class="display-4  text-danger text-center mt-5">Admin
 			Resistration Page</div>
-		<form action="./saveUserbySingUp" method="post" class="form-group" onsubmit="" enctype="multipart/form-data">
-			<input type="hidden" name="userId" id="userId"
-				value="${updateUser.userId}">
+		<form action="./saveUserbySingUp" method="post" class="form-group"  enctype="multipart/form-data">
+			<input type="hidden" name="userId" id="userId">
 			<div class="row">
 				<div class="col-sm-6">
-					<label class="text-primary">User Name<span
+					<label class="text-primary">Admin Name<span
 						class="text-danger">*</span></label> <input type="text"
 						class="form-control" name="userName" id="userName"
-						required="required" value="${updateUser.userName}"
-						<c:if test="${updateUser ne NULL}">readonly</c:if>>
+						required="required">
 				</div>
 				<div class="col-sm-6">
-					<label class="text-primary">Resistration Number<span class="text-danger">*</span></label>
+					<label class="text-primary">College Employee Number<span class="text-danger">*</span></label>
 					<input type="text" class="form-control" name="regdNo" id="regdNo"
 						required="required" value="${updateUser.regdNo}">
 				</div>
@@ -48,8 +46,7 @@
 					<label class="text-primary">Password<span
 						class="text-danger">*</span></label> <input type="password"
 						class="form-control" name="password" id="password"
-						required="required" value="${updateUser.password}"
-						<c:if test="${updateUser ne NULL}">readonly</c:if>>
+						required="required">
 
 				</div>
 
@@ -57,9 +54,7 @@
 					<label class="text-primary">Repeat Password<span
 						class="text-danger">*</span></label> <input type="password"
 						class="form-control" name="repeatPassword" id="repeatPassword"
-						onchange="validatePassword()" required="required"
-						value="${updateUser.password}"
-						<c:if test="${updateUser ne NULL}">readonly</c:if>>
+						onchange="validatePassword()" required="required">
 				</div>
 				
 			</div>
@@ -68,60 +63,29 @@
 					<label class="text-primary">mobile no<span
 						class="text-danger">*</span></label> <input type="text"
 						class="form-control" name="mobileNo" id="mobileNo"
-						required="required" value="${updateUser.mobileNo}">
+						required="required">
 				</div>
 				<div class="col-sm-6">
 					<label class="text-primary">Email<span class="text-danger">*</span></label>
 					<input type="text" class="form-control" name="email" id="email"
-						required="required" value="${updateUser.email}">
-				</div>
-
-
-				
-			</div>
-			<div class="row">
-				<div class="col-sm-6">
-					<label class="text-primary">Course Name<span
-						class="text-danger">*</span>
-					</label> <select class="form-control" name="course" id="course"
-						onchange="getBranch()">
-						<option value="Select">Select</option>
-						<c:forEach items="${courseList}" var="course">
-							<option value="${course.courseId}">${course.courseName}</option>
-
-						</c:forEach>
-					</select>
-				</div>
-
-
-				<div class="col-sm-6">
-					<label class="text-primary">Branch Name<span
-						class="text-danger">*</span></label> <select class="form-control "
-						name="branch" id="branch" onchange="getfees()">
-						<option value="0">Select</option>
-					</select>
+						required="required">
 				</div>
 			</div>
-
 
 			<div class="row">
 				<div class="col-sm-4">
 					<label class="text-primary">D.O.B<span class="text-danger">*</span></label>
 					<input type="text" class="form-control" name="dobb" id="dob"
-						required="required"
-						value="
-						<fmt:formatDate pattern = "dd/mm/yyyy" value="${updateUser.dob}"/>">
+						required="required">
 				</div>
 				<div class="col-sm-4 mt-4">
 					<label class="text-primary mt-2 ml-2">Gender <span class="text-danger"> *</span></label>
-					<input type="radio" name="gender" id="male" value="male"
-						<c:if test="${updateUser.gender eq 'male'}">checked="checked"</c:if>>male
-					<input type="radio" name="gender" id="female" value="female"
-						<c:if test="${updateUser.gender eq 'female'}">checked="checked"</c:if>>female
+					<input type="radio" name="gender" id="male" value="male">male
+					<input type="radio" name="gender" id="female" value="female">female
 				</div>
 				<div class="col-md-4 control-label">
 					<div class="form-group">
-						<label class="text-primary">Upload Student ID card<span
+						<label class="text-primary">Upload Teacher ID card<span
 							class="text-danger">*</span></label> <input type="file"
 							class="form-control" name="studenIidCard" id="studenIidCard">
 					</div>
@@ -142,17 +106,11 @@
 
 
 			<div align="center" class="mt-5">
-				<c:if test="${updateUser eq NULL}">
 					<input type="submit" value="resister" class="btn btn-success">
-				</c:if>
-				<c:if test="${updateUser ne NULL}">
-					<input type="submit" value="update" class="btn btn-success">
-				</c:if>
 				<input type="reset" value="clear" class="btn btn-secondary">
-
 			</div>
 			<div align="center" class="mt-2">
-				Already have an account ? <a href="./login">Login Here</a>
+				Already have an account ?<a href="./login">Login Here</a>
 			</div>
 		</form>
 	</div>
@@ -161,18 +119,7 @@
 			format : 'dd/mm/yyyy'
 		});
 
-		function getBranch() {
-			var courseId = $("#course").val();
-			$.ajax({
-				type : "GET",
-				url : "./getBranchByCourse",
-				data : "courseId=" + courseId,
-				success : function(response) {
-					$("#branch").html(response);
-				}
-
-			});
-		}
+		
 	</script>
 </body>
 </html>

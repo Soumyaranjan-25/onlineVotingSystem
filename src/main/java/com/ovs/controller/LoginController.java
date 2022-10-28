@@ -51,6 +51,9 @@ public class LoginController {
 	public String signUp(Model model) {
 		model.addAttribute("courseList", courseService.getAllCourse());
 		model.addAttribute("branchList", branchService.getAllBranch());
+		if(userService.getAllUser().size()==0) {
+			return "adminresister";
+		}
 		return "resister";
 	}
 
@@ -79,6 +82,8 @@ public class LoginController {
 		model.addAttribute("msg","Applicant saved successfully");
 		return "login";
 	}
+	
+	
 	@PostMapping("/checkUser")
 	private String checkUser(@RequestParam("userName") String userName, @RequestParam("password") String password,Model model) {
 		if(userName==null || userName=="") {

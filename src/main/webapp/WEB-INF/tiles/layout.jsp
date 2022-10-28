@@ -9,41 +9,42 @@
 .header {
 	height: 20%;
 	width: 100%;
-	float: top;
-	position: fixed;
-	top: 0;
-	padding: 10px;
 }
 
 .menu {
-	float: left; 
+	float: left;
 	padding: 20px;
-    width: 25%;
+	width: 25%;
 }
 
 .body {
-	float: right; 
-	padding: 10px; 
-	width: 85%; 
+	display: block;
+	float: right;
+	padding: 10px;
+	width: 85%;
 	height: 75%;
-	margin-top: 90px;
+	margin-top: 80px;
 }
 
 .footer {
-	float:right;
-	text-align: center; 
-	padding: 3px; 
-	background-color: DarkSalmon; 
-	color: white; 
-	bottom: 0px; 
-	width: 100%; 
-	height: 5%; 
+	float: right;
+	text-align: center;
+	padding: 3px;
+	background-color: DarkSalmon;
+	color: white;
+	bottom: 0px;
+	width: 100%;
+	height: 5%;
 	position: fixed;
 }
 </style>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+	crossorigin="anonymous">
 </head>
 <body>
-	<div class="header">
+	<div class="header fixed-top">
 		<tiles:insertAttribute name="header" />
 	</div>
 	<div class="menu">

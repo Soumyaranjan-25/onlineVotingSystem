@@ -17,7 +17,7 @@
 	</definition>
 	
 	<definition name="base.definitionUser"
-		template="/WEB-INF/tiles/userLayout.jsp">
+		template="/WEB-INF/tiles/layout.jsp">
 		<put-attribute name="title" value="" />
 		<put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
 		<put-attribute name="body" value="" />
