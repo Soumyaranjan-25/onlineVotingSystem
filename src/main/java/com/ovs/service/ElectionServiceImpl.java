@@ -15,9 +15,10 @@ public class ElectionServiceImpl implements ElectionService {
 	private ElectionRepository electionRepository;
 
 	@Override
-	public Election savePostDetails(Election election) {
+	public Election saveElectionDetails(Election election) {
 		election.setBitstatus("false");
 		election.setStartDate(new Date());
+		election.setElectionStatus(0);
 		return electionRepository.save(election);
 	}
 
@@ -39,6 +40,8 @@ public class ElectionServiceImpl implements ElectionService {
 
 	@Override
 	public void deleteElection(Integer electionId) {
+		Date date=new Date();
+		electionRepository.updateEndDate(electionId,date);
 		electionRepository.deleteElection(electionId);
 	}
 
@@ -50,5 +53,10 @@ public class ElectionServiceImpl implements ElectionService {
 	@Override
 	public Election getOngoingElection() {
 		return electionRepository.getOngoingElection();
+	}
+
+	@Override
+	public void startElection(Integer electionId) {
+		electionRepository.changeElectionStatus(electionId);
 	}
 }

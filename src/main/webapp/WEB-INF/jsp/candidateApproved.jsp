@@ -114,7 +114,9 @@
 								<th>Branch</th>
 								<th>Mobile No</th>
 								<th>Student Id Card</th>
-								<th>Action</th>
+								<c:if test="${ ongoinElection.electionStatus eq 0}">
+									<th>Action</th>
+								</c:if>
 							</tr>
 						</thead>
 						<tbody>
@@ -130,8 +132,10 @@
 									<td>${ApprovedcandidateApplyDetailsList.userId.mobileNo}</td>
 									<td><a
 										href="/downloadFile?userId=${ApprovedcandidateApplyDetailsList.userId.userId}">${ApprovedcandidateApplyDetailsList.userId.idCard}</a></td>
-									<td><a class='fas fa-trash' style='font-size: 24px'
-										href="./candidateDiscard?candidateApplyId=${ApprovedcandidateApplyDetailsList.candidateApplyId}"></a></td>
+									<c:if test="${ ongoinElection.electionStatus eq 0}">
+										<td><a class='fas fa-trash' style='font-size: 24px'
+											href="./candidateDiscard?candidateApplyId=${ApprovedcandidateApplyDetailsList.candidateApplyId}"></a></td>
+									</c:if>
 								</tr>
 							</c:forEach>
 						</tbody>

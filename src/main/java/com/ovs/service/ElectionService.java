@@ -4,7 +4,7 @@ import com.ovs.model.Election;
 
 public interface ElectionService {
 
-	Election savePostDetails(Election election);
+	Election saveElectionDetails(Election election);
 
 	Election getElection();
 
@@ -15,5 +15,7 @@ public interface ElectionService {
 	Election getElectionById(Integer electionId);
 
 	Election getOngoingElection();
+
+	void startElection(Integer electionId);
 
 }

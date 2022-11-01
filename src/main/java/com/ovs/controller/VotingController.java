@@ -50,6 +50,7 @@ public class VotingController {
 		model.addAttribute("postList",postService.getAllPost());
 		model.addAttribute("postDetailsList",postDetailsService.getAllPostDetails());
 		model.addAttribute("onGoingElection",electionService.getElection());
+		System.out.println(electionService.getElection());
 		return "votingControl";
 	}
 	
@@ -73,18 +74,26 @@ public class VotingController {
 	@PostMapping("/electionDetails")
 	public String electionDetails(@ModelAttribute Election election) {
 	
-		Election saveElection=electionService.savePostDetails(election);
+		Election saveElection=electionService.saveElectionDetails(election);
 		postDetailsService.updateElection(saveElection.getElectionId());
 		return "forward:/votingControl";
 	}
-	@PostMapping("/endElection")
-	public String endElection(@RequestParam("electionName") String  electionName) {
+	@GetMapping("/endElection")
+	public String endElection() {
 		
-		Integer electionId=electionService.getElectionIdByElectionName(electionName);
+		Integer electionId=electionService.getElection().getElectionId();
 		electionService.deleteElection(electionId);
 		postDetailsService.deletepostDetailsByElectionId(electionId);
 		candidateApplyDetailsService.deleteCandidateDetailsByElectionId(electionId);
 		return "forward:/votingControl";
+
+	}
+	@PostMapping("/startElection")
+	public String startElection() {
+		Integer electionId=electionService.getElection().getElectionId();
+		electionService.startElection(electionId);
+		return "forward:/votingControl";
+
 	}
 	
 	@RequestMapping("/candidateApply")
@@ -100,7 +109,8 @@ public class VotingController {
 	@RequestMapping("/voteToCandidate")
 	public String voteToCandidate(Model model) {
 		model.addAttribute("userList",userService.getUserByApproveStatus(1));
-		
+		model.addAttribute("onGoingElection",electionService.getElection());
+
 		return "voteToCandidate";
 	}
 	

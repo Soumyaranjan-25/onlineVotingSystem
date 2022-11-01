@@ -24,16 +24,7 @@
 </head>
 <script src='https://kit.fontawesome.com/a076d05399.js'
 	crossorigin='anonymous'></script>
-<script
-	src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<script
-	src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
-<link
-	rel="https://cdnjs.datatables/1.12.1/css/dataTables.bootstrap4.min.css">
-<script
-	src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<script
-	src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+
 <body>
 
 	<div>
@@ -44,11 +35,11 @@
 					<div class="card-header">
 						<ul class="nav nav-tabs card-header-tabs">
 							<li class="nav-item"><a class="nav-link active" id="addId"
-								onclick="openAdd()">Add</a></li>
-							<li class="nav-item"><a class="nav-link" id="startId"
-								onclick="openStart()">Start</a></li>
-							<li class="nav-item"><a class="nav-link" id="endId"
-								onclick="openEnd()">End</a></li>
+								onclick="openAdd()">add</a></li>
+							<li class="nav-item"><a class="nav-link" id="declareId"
+								onclick="openDeclare()">declare</a></li>
+							<li class="nav-item"><a class="nav-link" id="manageId"
+								onclick="openManage()">manage</a></li>
 						</ul>
 					</div>
 
@@ -57,11 +48,16 @@
 			</div>
 		</div>
 		<div class="card-body">
-
 			<div id="add">
 				<h4>Declare Post</h4>
+				<c:if test="${onGoingElection ne NULL}">
+					<h4 class="text-danger" align="center">
+						<b>Already ${onGoingElection.electionName } is under process</b>
+					</h4>
+				</c:if>
 				<div class="container border">
-					<form class="form-group" action="./savePostDetails" method="post">
+					<form class="form-group" action="./savePostDetails" method="post"
+						id="declarePostForm">
 						<input type="hidden" name="postDetailsId" id="postDetailsId"
 							value="${updatePostDetails.postDetailsId}">
 						<div class="row">
@@ -84,7 +80,6 @@
 									type="number" id="noOfCandidate" name="noOfCandidate"
 									class="form-control" autocomplete="off"
 									value="${updatePostDetails.noOfCandidate}">
-
 							</div>
 						</div>
 
@@ -100,19 +95,10 @@
 						<div class="row mt-2">
 							<div class="col-sm-2">
 								<button class="btn btn-success">Add</button>
-
 							</div>
 						</div>
 					</form>
 				</div>
-				<c:if test="${onGoingElection ne NULL}">
-					<h4 class="text-danger" align="center">
-						<b>${onGoingElection.electionName } is going on</b>
-					</h4>
-				</c:if>
-				<c:if test="${onGoingElection eq NULL}">
-					<h3 class="card-title" align="center">Election Name</h3>
-				</c:if>
 
 				<div class="table-container mt-4 ">
 					<table class="table table-bordered" id="dataTable">
@@ -148,13 +134,17 @@
 					</table>
 				</div>
 			</div>
-			
-			<div id="start">
-				<c:if test="${onGoingElection eq NULL}">
-					<h4>Start Election</h4>
-					<div class="StartContainer border">
 
-						<form class="form-group" action="./electionDetails" method="post">
+			<div id="declare">
+				<%-- 	<c:if test="${onGoingElection eq NULL}"> --%>
+				<div>
+					<input type="hidden" id="onGoingElectionId"
+						value="${onGoingElection.electionId}">
+				</div>
+				<h4>Declare Election</h4>
+				<div class="StartContainer border">
+					<form class="form-group" action="./electionDetails" method="post" id="declareForm">
+						<div class="ml-2">
 							<div class="row">
 								<div class="col-sm-6">
 									<label class="form-label text-info">Election Name<span
@@ -162,6 +152,8 @@
 									</label> <input type="text" id="electionName" name="electionName"
 										class="form-control" autocomplete="off">
 								</div>
+							</div>
+							<div class="row">
 								<div class="col-sm-6">
 									<label class="form-label text-info">Election Year<span
 										class="text-danger">*</span> :
@@ -186,45 +178,54 @@
 										class="form-control" autocomplete="off">
 								</textarea>
 								</div>
-								<div class="col-sm-2"></div>
-								<div class="col-sm-3 mt-5">
-									<button class="btn btn-success">Start</button>
+							</div>
+							<div class="row">
+								<div class="col-sm-3 mt-2">
+									<button class="btn btn-success">Declare</button>
 
 								</div>
 							</div>
-						</form>
-					</div>
-				</c:if>
+						</div>
+					</form>
+				</div>
+				<%-- </c:if> --%>
 
 
 
 			</div>
-			<div id="end">
+			<div id="manage">
 				<h4>End Election</h4>
 				<div class="Container border">
-					<form class="form-group" action="./endElection" method="post">
-						<div class="row ml-2">
-							<div class="col-sm-6">
-								<label class="form-label text-info">Election Name : </label> <input
-									type="text" id="electionName" name="electionName"
-									class="form-control" value="${onGoingElection.electionName }"
-									readonly>
+					<c:if test="${onGoingElection eq NULL}">
+						<h4 class="text-danger" align="center">
+							<b>No election is going on</b>
+						</h4>
+					</c:if>
+					<form class="form-group" action="./startElection" method="post">
+						<div class="ml-2">
+							<div class="row ">
+								<div class="col-sm-6">
+									<label class="form-label text-info">Election Name : </label> <input
+										type="text" id="electionName" name="electionName"
+										class="form-control" value="${onGoingElection.electionName }"
+										readonly>
+								</div>
 							</div>
-						</div>
-						<div class="row ml-2">
-							<div class="col-sm-6 ">
-								<label class="form-label text-info">Election Year : </label> <input
-									type="text" value="${onGoingElection.electionYear }"
-									class="form-control" readonly>
+							<div class="row">
+								<div class="col-sm-6 ">
+									<label class="form-label text-info">Election Year : </label> <input
+										type="text" value="${onGoingElection.electionYear }"
+										class="form-control" readonly>
+								</div>
 							</div>
-						</div>
-						<div class="row ml-2">
-							<div class="col-sm-5 mt-3 ">
-								<button class="btn btn-danger">End</button>
+							<div class="row">
+								<div class="col-sm-5 mt-3 ">
+									<input type="submit" class="btn btn-success" value="start">
+									<button class="btn btn-danger" id="endId">End</button>
+								</div>
 
 							</div>
 						</div>
-
 					</form>
 				</div>
 			</div>
@@ -232,48 +233,60 @@
 		</div>
 	</div>
 	<script>
-		$(document).ready(function() {
-			$('#add').show();
-			$('#start').hide();
-			$('#end').hide();
-		});
+		$(document).ready(
+				function() {
+					$('#add').show();
+					$('#declare').hide();
+					$('#manage').hide();
+					var onGoingElectionId = document
+							.getElementById('onGoingElectionId').value;
+					if (onGoingElectionId != "") {
+						$('#declareForm :input').attr('readonly', 'readonly');
+						$('#declarePostForm :input').attr('readonly',
+								'readonly');
+					} else {
+						document.getElementById('declareForm').removeAttribute(
+								'readonly');
+						document.getElementById('declarePostForm')
+								.removeAttribute('readonly');
+					}
 
+				});
+
+		function openDeclare() {
+			$('#manage').hide();
+			$('#declare').show();
+			$('#add').hide();
+
+			$('#declareId').addClass("active");
+			$('#manageId').removeClass("active");
+			$('#addId').removeClass("active");
+		}
 		function openAdd() {
-			$('#start').hide();
 			$('#add').show();
-			$('#end').hide();
+			$('#manage').hide();
+			$('#declare').hide();
 
+			$('#declareId').removeClass("active");
 			$('#addId').addClass("active");
-			$('#startId').removeClass("active");
-			$('#endId').removeClass("active");
-		}
-		function openStart() {
-			$('#start').show();
-			$('#add').hide();
-			$('#end').hide();
-
-			$('#addId').removeClass("active");
-			$('#startId').addClass("active");
-			$('#endId').removeClass("active");
+			$('#manageId').removeClass("active");
 		}
 
-		function openEnd() {
-			$('#start').hide();
-			$('#end').show();
+		function openManage() {
 			$('#add').hide();
+			$('#manage').show();
+			$('#declare').hide();
 
-			$('#endId').addClass("active");
-			$('#startId').removeClass("active");
+			$('#manageId').addClass("active");
+			$('#declareId').removeClass("active");
 			$('#addId').removeClass("active");
 		}
-
-		function startElection() {
-
+		endId.onclick = function() {
+			window.location.href = "endElection";
+			
 		}
 
-		$(document).ready(function() {
-			$('#dataTable').DataTable();
-		});
+		
 	</script>
 </body>
 </html>

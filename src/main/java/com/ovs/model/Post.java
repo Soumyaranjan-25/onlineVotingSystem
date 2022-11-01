@@ -18,7 +18,7 @@ import lombok.Setter;
 @Table(name="t_ov_candidate_post")
 public class Post implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="post_id")

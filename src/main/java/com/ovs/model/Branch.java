@@ -17,13 +17,13 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 @Getter
 @Setter
 //@ToString
 @Entity
 @Table(name="t_ov_branch")
 public class Branch implements Serializable {
+	private static final long serialVersionUID = 2;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="branch_id")

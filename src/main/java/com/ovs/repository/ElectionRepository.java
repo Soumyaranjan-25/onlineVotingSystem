@@ -1,5 +1,6 @@
 package com.ovs.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -29,5 +30,15 @@ public interface ElectionRepository extends JpaRepository<Election, Integer> {
 
 	@Query("From Election where bitstatus='false'")
 	Election getOngoingElection();
+
+	@Transactional
+	@Modifying
+	@Query("Update Election set electionStatus=1 where electionId=:electionId")
+	void changeElectionStatus(Integer electionId);
+	
+	@Transactional
+	@Modifying
+	@Query("Update Election set endDate=:date where electionId=:electionId")
+	void updateEndDate(Integer electionId, Date date);
 
 }

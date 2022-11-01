@@ -2,8 +2,8 @@ package com.ovs.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,36 +15,33 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
-
+import lombok.ToString;
 @Getter
 @Setter
+@ToString
 @Entity
-@Table(name="t_ov_candidate_apply")
-public class CandidateApplyDetails implements Serializable {
-	
-	private static final long serialVersionUID = 8;
+@Table(name="t_ov_candidate_vote")
+public class CandidateVoteDetails implements Serializable {
+	private static final long serialVersionUID = 9;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="candidate_apply_id")
-	private Integer candidateApplyId;
+	@Column(name="candidate_vote_id")
+	private Integer candidateVoteId;
 	
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name="user_id")
-	private User userId;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="post_id")
-	private Post postId;
+	private Post post;
 	
 	@ManyToOne
 	@JoinColumn(name="election_id")
 	private Election election;
 	
-	@Column(name="bitstatus")
-	private String bitstatus;
-	@Column(name="apply_on")
-	private Date applyOn;
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
 	
-	@Column(name="candidate_status")
-	private Integer candidateStatus;
+	@Column(name="vote_date")
+	private Date votingDate;
+
+
 }

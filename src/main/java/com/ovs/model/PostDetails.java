@@ -20,7 +20,7 @@ import lombok.Setter;
 @Table(name="t_ov_post_details")
 public class PostDetails implements Serializable {
 
-	private static final long serialVersionUID = -9045725405593172978L;
+	private static final long serialVersionUID = 6;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="post_details_id")

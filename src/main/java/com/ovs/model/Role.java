@@ -19,6 +19,7 @@ import lombok.ToString;
 @Entity
 @Table(name="t_ov_role")
 public class Role implements Serializable {
+	private static final long serialVersionUID = 4;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="role_id")

@@ -25,6 +25,11 @@
 		<h2 align="center" class="text-danger">
 			<b> ${ onGoingElection.electionName}</b>
 		</h2>
+		<c:if test="${ onGoingElection.electionStatus eq 1}">
+			<h3 class="text-info">
+				<b> ${ onGoingElection.electionName} is going on</b>
+			</h3>
+		</c:if>
 		<c:if test="${appliedPost ne NULL }">
 			<h4>
 				<b>Applied Post</b>
@@ -36,8 +41,11 @@
 							<th>S.No</th>
 							<th>Post Name</th>
 							<th>Apply On</th>
-							<c:if test="${appliedPost.candidateStatus eq 0}">
-								<th>Action</th>
+							<th>Status</th>
+							<c:if test="${ onGoingElection.electionStatus eq 0}">
+								<c:if test="${appliedPost.candidateStatus eq 0}">
+									<th>Action</th>
+								</c:if>
 							</c:if>
 						</tr>
 					</thead>
@@ -47,8 +55,19 @@
 							<td>${appliedPost.postId.postName}</td>
 							<td>${appliedPost.applyOn}</td>
 							<c:if test="${appliedPost.candidateStatus eq 0}">
-								<td><a class='fas fa-trash' style='font-size: 24px'
-									href="./deleteAppliedPost?candidateApplyId=${appliedPost.candidateApplyId}"></a></td>
+								<td>Pending</td>
+							</c:if>
+							<c:if test="${appliedPost.candidateStatus eq 1}">
+								<td>Approved</td>
+							</c:if> 
+							<c:if test="${appliedPost.candidateStatus eq 2}">
+								<td>Discard</td>
+							</c:if> 
+							<c:if test="${ onGoingElection.electionStatus eq 0}">
+								<c:if test="${appliedPost.candidateStatus eq 0}">
+									<td><a class='fas fa-trash' style='font-size: 24px'
+										href="./deleteAppliedPost?candidateApplyId=${appliedPost.candidateApplyId}"></a></td>
+								</c:if>
 							</c:if>
 
 
@@ -68,8 +87,10 @@
 						<th>Post Name</th>
 						<th>No Of Candidate</th>
 						<th>Remark</th>
-						<c:if test="${appliedPost eq NULL }">
-							<th>Action</th>
+						<c:if test="${ onGoingElection.electionStatus eq 0}">
+							<c:if test="${appliedPost eq NULL }">
+								<th>Action</th>
+							</c:if>
 						</c:if>
 					</tr>
 				</thead>
@@ -81,10 +102,12 @@
 							<td>${postDetails.post.postName}</td>
 							<td>${postDetails.noOfCandidate}</td>
 							<td>${postDetails.remark}</td>
-							<c:if test="${appliedPost eq NULL }">
-								<td><a
-									href="./applyForPost?postId=${postDetails.post.postId}&electionId=${onGoingElection.electionId}"
-									class="btn btn-success">Apply</a></td>
+							<c:if test="${ onGoingElection.electionStatus eq 0}">
+								<c:if test="${appliedPost eq NULL }">
+									<td><a
+										href="./applyForPost?postId=${postDetails.post.postId}&electionId=${onGoingElection.electionId}"
+										class="btn btn-success">Apply</a></td>
+								</c:if>
 							</c:if>
 						</tr>
 					</c:forEach>
