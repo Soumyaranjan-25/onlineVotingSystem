@@ -23,4 +23,6 @@ public interface CandidateApplyDetailsService {
 
 	void deleteCandidateDetailsByElectionId(Integer electionId);
 
+	CandidateApplyDetails getCandidateApplyDetailsById(Integer candidateApplyId);
+
 }

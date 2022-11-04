@@ -56,5 +56,10 @@ public class CandidateApplyDetailsServiceImpl implements CandidateApplyDetailsSe
 		candidateApplyDetailsRepository.deleteCandidateDetailsByElectionId(electionId);
 	}
 
+	@Override
+	public CandidateApplyDetails getCandidateApplyDetailsById(Integer candidateApplyId) {
+		return candidateApplyDetailsRepository.getByCandidateId(candidateApplyId);
+	}
+
 	
 }

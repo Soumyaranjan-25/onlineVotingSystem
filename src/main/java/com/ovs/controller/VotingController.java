@@ -19,10 +19,10 @@ import com.ovs.model.Post;
 import com.ovs.model.PostDetails;
 import com.ovs.model.User;
 import com.ovs.service.CandidateApplyDetailsService;
+import com.ovs.service.CandidateVoteDetailsService;
 import com.ovs.service.ElectionService;
 import com.ovs.service.PostDetailsService;
 import com.ovs.service.PostService;
-import com.ovs.service.UserService;
 
 @Controller
 public class VotingController {
@@ -37,7 +37,7 @@ public class VotingController {
 	private ElectionService electionService;
 	
 	@Autowired
-	private UserService userService;
+	private CandidateVoteDetailsService candidateVoteDetailsservice;
 	
 	@Autowired
 	private HttpSession httpSession;
@@ -50,7 +50,6 @@ public class VotingController {
 		model.addAttribute("postList",postService.getAllPost());
 		model.addAttribute("postDetailsList",postDetailsService.getAllPostDetails());
 		model.addAttribute("onGoingElection",electionService.getElection());
-		System.out.println(electionService.getElection());
 		return "votingControl";
 	}
 	
@@ -108,12 +107,21 @@ public class VotingController {
 	
 	@RequestMapping("/voteToCandidate")
 	public String voteToCandidate(Model model) {
-		model.addAttribute("userList",userService.getUserByApproveStatus(1));
 		model.addAttribute("onGoingElection",electionService.getElection());
-
+		model.addAttribute("approvedCandidateList",candidateApplyDetailsService.getApprovedCandidateApplyDetails());
+		User loginUser=(User) httpSession.getAttribute("loginUser");
+		Election ongoingElection=electionService.getElection();
+		model.addAttribute("candidateVotingDetailsList",candidateVoteDetailsservice.getCandidateVoteDetailsByUserId(loginUser.getUserId(),ongoingElection.getElectionId()));
 		return "voteToCandidate";
 	}
 	
+	@RequestMapping("/saveCandidateVote")
+	public String saveCandidateVote(@RequestParam("candidateApplyId") Integer candidateApplyId) {
+		User loginUser=(User) httpSession.getAttribute("loginUser");
+		candidateVoteDetailsservice.saveCandidateVote(candidateApplyId,loginUser);
+
+		return "forward:/voteToCandidate";
+	}
 	
 	
 	@RequestMapping("/votingStatus")

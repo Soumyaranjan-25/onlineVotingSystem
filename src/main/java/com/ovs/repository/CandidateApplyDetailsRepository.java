@@ -38,5 +38,8 @@ public interface CandidateApplyDetailsRepository extends JpaRepository<Candidate
 	@Query("UPDATE CandidateApplyDetails c set c.bitstatus='true' where c.election.electionId=:electionId")
 	void deleteCandidateDetailsByElectionId(Integer electionId);
 
+	@Query("From CandidateApplyDetails where candidateApplyId=:candidateApplyId")
+	CandidateApplyDetails getByCandidateId(Integer candidateApplyId);
+
 
 }

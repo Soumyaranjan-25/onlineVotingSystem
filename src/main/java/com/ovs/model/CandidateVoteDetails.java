@@ -40,8 +40,12 @@ public class CandidateVoteDetails implements Serializable {
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@Column(name="vote_date")
+	@Column(name="voting_date")
 	private Date votingDate;
+	
+	@ManyToOne
+	@JoinColumn(name="candidate_id")
+	private User candidate_id;
 
 
 }

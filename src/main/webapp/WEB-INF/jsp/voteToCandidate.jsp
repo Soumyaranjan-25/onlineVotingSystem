@@ -27,16 +27,113 @@
 <body>
 
 	<div>
-		<h4 >Vote to candidate Page</h4>
+		<h4>Vote to candidate Page</h4>
+		<hr>
 		<c:if test="${ onGoingElection.electionStatus eq 0}">
-			<h3 class="text-info">
+			<h3 class="text-info" align="center">
 				<b>Election is not starting</b>
 			</h3>
 		</c:if>
+		<c:if test="${ onGoingElection.electionStatus eq 1}">
+			<c:if test="${candidateVotingDetailsList.size() ne 0}">
+				<h3>
+					<b>Your Vote Details</b>
+				</h3>
+				<hr>
+				<div class="table-container mt-4">
+					<table class="table table-bordered" id="dataTable">
+						<thead>
+							<tr>
+								<th>S.No</th>
+								<th>Post</th>
+								<th>Candidate Name</th>
+								<th>Election Name</th>
+								<th>Date</th>
 
-				<c:forEach items="${onGoingElection.postDetails }" var="postDetails"
-					varStatus="count">
-					<div class="container border">
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${candidateVotingDetailsList}"
+								var="candidateVotingDetails" varStatus="count">
+								<tr>
+									<td>${count.count}</td>
+									<td>${candidateVotingDetails.post.postName}</td>
+									<td>${candidateVotingDetails.candidate_id.userName}</td>
+									<td>${candidateVotingDetails.election.electionName}</td>
+									<td><fmt:formatDate pattern="dd/MM/yyyy"
+											value="${candidateVotingDetails.votingDate}" /></td>
+
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</c:if>
+			<hr>
+			<h3>
+				<b>Candidate Details</b>
+			</h3>
+			<c:forEach items="${onGoingElection.postDetails }" var="postDetails"
+				varStatus="count">
+		      <c:if test="count="></c:if>
+				<p>${postDetails.post.postId}</p>
+				<div class="container border">
+					<c:if test="${candidateVotingDetailsList.size() ne 0}">
+						<c:forEach items="${candidateVotingDetailsList}"
+							var="candidateVotingDetails">
+							<c:if
+								test="${candidateVotingDetails.post.postId  ne postDetails.post.postId}">
+								<p>Coming</p>
+								<p>${candidateVotingDetails.post.postId}</p>
+								<hr>
+								<p>${postDetails.post.postId}</p>
+								<h4>
+									<b>${postDetails.post.postName}</b>
+								</h4>
+								<div class="table-container mt-4">
+									<table class="table table-bordered" id="dataTable">
+										<thead>
+											<tr>
+												<th>S.No ${candidateVotingDetails.post.postId }</th>
+												<th>User Name</th>
+												<th>Regd No</th>
+												<th>Course</th>
+												<th>Branch</th>
+												<th>Mobile No</th>
+												<th>Email</th>
+												<th>Student Id Card</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${approvedCandidateList}"
+												var="candidateApplyDetails" varStatus="count">
+												<c:if
+													test="${candidateApplyDetails.postId.postId eq  postDetails.post.postId}">
+													<tr>
+														<td>${count.count}</td>
+														<td>${candidateApplyDetails.userId.userName}</td>
+														<td>${candidateApplyDetails.userId.regdNo}</td>
+														<td>${candidateApplyDetails.userId.course.courseName}</td>
+														<td>${candidateApplyDetails.userId.branch.branchName}</td>
+														<td>${candidateApplyDetails.userId.mobileNo}</td>
+														<td>${candidateApplyDetails.userId.email}</td>
+														<td><a
+															href="/downloadFile?userId=${candidateApplyDetails.userId.userId}">${candidateApplyDetails.userId.idCard}</a></td>
+														<td><a class="btn btn-warning"
+															style='font-size: 15px;'
+															href="./saveCandidateVote?candidateApplyId=${candidateApplyDetails.candidateApplyId}">Vote</a></td>
+													</tr>
+												</c:if>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</c:if>
+						</c:forEach>
+					</c:if>
+					<c:if test="${candidateVotingDetailsList.size() eq 0}">
+						<p>Not coming</p>
 						<h4>
 							<b>${postDetails.post.postName }</b>
 						</h4>
@@ -52,11 +149,11 @@
 										<th>Mobile No</th>
 										<th>Email</th>
 										<th>Student Id Card</th>
-										<th colspan="2">Action</th>
+										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${candidateApplyDetailsList}"
+									<c:forEach items="${approvedCandidateList}"
 										var="candidateApplyDetails" varStatus="count">
 										<c:if
 											test="${candidateApplyDetails.postId.postId eq  postDetails.post.postId}">
@@ -70,66 +167,21 @@
 												<td>${candidateApplyDetails.userId.email}</td>
 												<td><a
 													href="/downloadFile?userId=${candidateApplyDetails.userId.userId}">${candidateApplyDetails.userId.idCard}</a></td>
-												<td><a class="btn btn-success" style='font-size: 15px;'
-													href="./updateCandidateApproved?candidateApplyId=${candidateApplyDetails.candidateApplyId}">Approve</a></td>
-												<td><a class='btn btn-warning' style='font-size: 15px'
-													href="./candidateDiscard?candidateApplyId=${candidateApplyDetails.candidateApplyId}">Discard</a></td>
+												<td><a class="btn btn-warning" style='font-size: 15px;'
+													href="./saveCandidateVote?candidateApplyId=${candidateApplyDetails.candidateApplyId}">Vote</a></td>
 											</tr>
 										</c:if>
 									</c:forEach>
 								</tbody>
 							</table>
 						</div>
-					</div>
-					<hr>
-				</c:forEach>
-
-			</div>
-			<div id="view">
-
-				<h3 class="card-title">Approved Candidate Details</h3>
-				<div class="table-container mt-4">
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>S.No</th>
-								<th>PostName</th>
-								<th>User Name</th>
-								<th>Regd No</th>
-								<th>Course</th>
-								<th>Branch</th>
-								<th>Mobile No</th>
-								<th>Student Id Card</th>
-								<c:if test="${ ongoinElection.electionStatus eq 0}">
-									<th>Action</th>
-								</c:if>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${ApprovedcandidateApplyDetailsList}"
-								var="ApprovedcandidateApplyDetailsList" varStatus="count">
-								<tr>
-									<td>${count.count}</td>
-									<td>${ApprovedcandidateApplyDetailsList.postId.postName}</td>
-									<td>${ApprovedcandidateApplyDetailsList.userId.userName}</td>
-									<td>${ApprovedcandidateApplyDetailsList.userId.regdNo}</td>
-									<td>${ApprovedcandidateApplyDetailsList.userId.course.courseName}</td>
-									<td>${ApprovedcandidateApplyDetailsList.userId.branch.branchName}</td>
-									<td>${ApprovedcandidateApplyDetailsList.userId.mobileNo}</td>
-									<td><a
-										href="/downloadFile?userId=${ApprovedcandidateApplyDetailsList.userId.userId}">${ApprovedcandidateApplyDetailsList.userId.idCard}</a></td>
-									<c:if test="${ ongoinElection.electionStatus eq 0}">
-										<td><a class='fas fa-trash' style='font-size: 24px'
-											href="./candidateDiscard?candidateApplyId=${ApprovedcandidateApplyDetailsList.candidateApplyId}"></a></td>
-									</c:if>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+					</c:if>
 				</div>
-			</div>
-		</div>
+				<hr>
+			</c:forEach>
+		</c:if>
 	</div>
+
 	<script>
 		$(document).ready(function() {
 			$('#add').show();
@@ -151,9 +203,6 @@
 			$('#viewId').addClass("active");
 		}
 
-		$(document).ready(function() {
-			$('#dataTable').DataTable();
-		});
 		$('#searchCreatedOn').datepicker({
 			format : 'dd/mm/yyyy'
 		});
