@@ -18,7 +18,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query("FROM User where userName=:userName and password=:password and bitstatus='false'")
 	User getUserByUserName(String userName,String password);
 	
-	@Query("FROM User where bitstatus='false'")
+	@Query("FROM User u where u.bitstatus='false' and u.role.roleId=2")
 	List<User> getAllUser();
 
 	@Query("FROM User where userId=:userId")
@@ -34,5 +34,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query("FROM User where bitstatus='false' and approveStatus=:approveStatus")
 	List<User> getUserByApproveStatus(Integer approveStatus);
+
+	@Query("SELECT COUNT(*) FROM User u where u.bitstatus='false' and u.role.roleId=2")
+	Integer getUserCount();
 
 }

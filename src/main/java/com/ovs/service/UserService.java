@@ -23,4 +23,6 @@ public interface UserService {
 	List<User> getUserByApproveStatus(Integer approveStatus);
 
 	void saveUser(User user);
+
+	Integer getUserCount();
 }

@@ -93,6 +93,8 @@ body {
   <hr>
    <a href="./voteToCandidate">Vote To Candidate</a>
   <hr>
+  <a href="./electionResultsForUser">Election Results</a>
+  <hr>
   <a href="./login">Logout</a>
   <hr>
 </div>

@@ -18,5 +18,7 @@ public interface PostDetailsService {
 
 	void deletepostDetailsByElectionId(Integer electionId);
 
+	void updateWinningDetails(Integer electionId);
+
 
 }

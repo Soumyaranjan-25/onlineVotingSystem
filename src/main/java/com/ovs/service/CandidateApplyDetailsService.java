@@ -25,4 +25,6 @@ public interface CandidateApplyDetailsService {
 
 	CandidateApplyDetails getCandidateApplyDetailsById(Integer candidateApplyId);
 
+	List<CandidateApplyDetails> getApprovedCandidateApplyDetailsByPostId(Integer postId);
+
 }

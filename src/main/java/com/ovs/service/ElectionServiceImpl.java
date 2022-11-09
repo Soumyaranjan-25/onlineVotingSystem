@@ -59,4 +59,9 @@ public class ElectionServiceImpl implements ElectionService {
 	public void startElection(Integer electionId) {
 		electionRepository.changeElectionStatus(electionId);
 	}
+
+	@Override
+	public Election getLatestElection() {
+		return electionRepository.getLatestElection();
+	}
 }

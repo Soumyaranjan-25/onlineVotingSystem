@@ -38,7 +38,10 @@ public interface ElectionRepository extends JpaRepository<Election, Integer> {
 	
 	@Transactional
 	@Modifying
-	@Query("Update Election set endDate=:date where electionId=:electionId")
+	@Query("Update Election set endDate=:date, electionStatus=2 where electionId=:electionId")
 	void updateEndDate(Integer electionId, Date date);
+
+	@Query("FROM Election WHERE electionId=(SELECT max(electionId) FROM Election)")
+	Election getLatestElection();
 
 }

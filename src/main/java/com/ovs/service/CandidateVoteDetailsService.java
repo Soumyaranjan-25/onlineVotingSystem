@@ -11,4 +11,8 @@ public interface CandidateVoteDetailsService {
 
 	List<CandidateVoteDetails> getCandidateVoteDetailsByUserId(Integer userId, Integer electionId);
 
+	Integer getCandidateVoteDetailsByElectionId(Integer electionId);
+
+	Integer getCandidateVoteDetailsByPostIdAndElectionId(Integer postId, Integer electionId, Integer userId);
+
 }

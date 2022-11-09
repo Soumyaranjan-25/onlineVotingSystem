@@ -1,6 +1,7 @@
 package com.ovs.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ovs.model.CandidateApplyDetails;
+import com.ovs.model.CandidateVoteDetails;
 import com.ovs.model.Election;
 import com.ovs.model.Post;
 import com.ovs.model.PostDetails;
@@ -23,6 +26,7 @@ import com.ovs.service.CandidateVoteDetailsService;
 import com.ovs.service.ElectionService;
 import com.ovs.service.PostDetailsService;
 import com.ovs.service.PostService;
+import com.ovs.service.UserService;
 
 @Controller
 public class VotingController {
@@ -45,11 +49,15 @@ public class VotingController {
 	@Autowired
 	private CandidateApplyDetailsService candidateApplyDetailsService;
 	
+	@Autowired
+	private UserService userService;
+	
 	@RequestMapping("/votingControl")
 	public String votingControl(Model model) {
 		model.addAttribute("postList",postService.getAllPost());
 		model.addAttribute("postDetailsList",postDetailsService.getAllPostDetails());
 		model.addAttribute("onGoingElection",electionService.getElection());
+		System.out.println(electionService.getElection());
 		return "votingControl";
 	}
 	
@@ -70,24 +78,23 @@ public class VotingController {
 		return "forward:/votingControl";
 	}
 	
-	@PostMapping("/electionDetails")
+	@GetMapping("/electionDetails")
 	public String electionDetails(@ModelAttribute Election election) {
 	
 		Election saveElection=electionService.saveElectionDetails(election);
 		postDetailsService.updateElection(saveElection.getElectionId());
 		return "forward:/votingControl";
 	}
-	@GetMapping("/endElection")
+	@RequestMapping(value = "/manageElection", method = RequestMethod.POST, params = "end")
 	public String endElection() {
-		
 		Integer electionId=electionService.getElection().getElectionId();
-		electionService.deleteElection(electionId);
+		postDetailsService.updateWinningDetails(electionId);
 		postDetailsService.deletepostDetailsByElectionId(electionId);
 		candidateApplyDetailsService.deleteCandidateDetailsByElectionId(electionId);
+		electionService.deleteElection(electionId);
 		return "forward:/votingControl";
-
 	}
-	@PostMapping("/startElection")
+	@RequestMapping(value = "/manageElection", method = RequestMethod.POST, params = "start")
 	public String startElection() {
 		Integer electionId=electionService.getElection().getElectionId();
 		electionService.startElection(electionId);
@@ -107,11 +114,23 @@ public class VotingController {
 	
 	@RequestMapping("/voteToCandidate")
 	public String voteToCandidate(Model model) {
-		model.addAttribute("onGoingElection",electionService.getElection());
-		model.addAttribute("approvedCandidateList",candidateApplyDetailsService.getApprovedCandidateApplyDetails());
 		User loginUser=(User) httpSession.getAttribute("loginUser");
 		Election ongoingElection=electionService.getElection();
-		model.addAttribute("candidateVotingDetailsList",candidateVoteDetailsservice.getCandidateVoteDetailsByUserId(loginUser.getUserId(),ongoingElection.getElectionId()));
+		model.addAttribute("onGoingElection",ongoingElection);
+		List<PostDetails> ongoingELectionPostDetailsList=ongoingElection.getPostDetails();
+		List<CandidateVoteDetails> candidateVoteDetailsList=candidateVoteDetailsservice.getCandidateVoteDetailsByUserId(loginUser.getUserId(),ongoingElection.getElectionId());
+		for(Integer i=ongoingELectionPostDetailsList.size()-1;i>=0;i--) {
+			for(CandidateVoteDetails candidateVoteDetails:candidateVoteDetailsList) {
+				System.out.println(ongoingELectionPostDetailsList.get(i));
+				if(ongoingELectionPostDetailsList.get(i).getPost().getPostId()==candidateVoteDetails.getPost().getPostId()) {
+					ongoingELectionPostDetailsList.remove(ongoingELectionPostDetailsList.get(i));
+					break;
+				}
+			}
+		}
+		model.addAttribute("ongoingELectionPostDetailsList",ongoingELectionPostDetailsList);
+		model.addAttribute("approvedCandidateList",candidateApplyDetailsService.getApprovedCandidateApplyDetails());
+		model.addAttribute("candidateVotingDetailsList",candidateVoteDetailsList);
 		return "voteToCandidate";
 	}
 	
@@ -126,7 +145,20 @@ public class VotingController {
 	
 	@RequestMapping("/votingStatus")
 	public String votingStatus(Model model) {
+		Election ongoingElection=electionService.getLatestElection();
+		Integer voter=candidateVoteDetailsservice.getCandidateVoteDetailsByElectionId(ongoingElection.getElectionId());
+		Integer user=userService.getUserCount();
+		Integer votePercentage= (voter*100)/user;
+		model.addAttribute("votePercentage",votePercentage);
+		model.addAttribute("onGoingElection",ongoingElection);
 		return "votingStatus";
+	}
+	
+	@RequestMapping("/electionResultsForUser")
+	public String electionResultsForUser(Model model) {
+		Election ongoingElection=electionService.getLatestElection();
+		model.addAttribute("onGoingElection",ongoingElection);
+		return "electionResultsForUser";
 	}
 	
 	@RequestMapping("/applyForPost")

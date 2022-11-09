@@ -34,4 +34,10 @@ public interface PostDetailsRepository extends JpaRepository<PostDetails, Intege
 	@Query("UPDATE PostDetails set bitstatus='true' where election_id=:electionId")
 	void deletepostDetailsByElectionId(Integer electionId);
 
+	
+	@Transactional
+	@Modifying
+	@Query("UPDATE PostDetails set winningUser.userId=:userId ,winnerVotingPercentage=:winningPercentage   where election_id=:electionId and post.postId=:postId")
+	void updateWinningDetails(Integer electionId, Integer userId, Double winningPercentage, Integer postId);
+
 }

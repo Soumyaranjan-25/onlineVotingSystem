@@ -37,4 +37,14 @@ public class CandidateVoteDetailsServiceImpl implements CandidateVoteDetailsServ
 		return candidateVoteDetailsRepository.getCandidateVoteDetailsByUserId(userId,electionId);
 	}
 
+	@Override
+	public Integer getCandidateVoteDetailsByElectionId(Integer electionId) {
+		return candidateVoteDetailsRepository.countByElectionId(electionId);
+	}
+
+	@Override
+	public Integer getCandidateVoteDetailsByPostIdAndElectionId(Integer postId, Integer electionId, Integer userId) {
+		return candidateVoteDetailsRepository.getCandidateVoteDetailsByPostIdAndUserId(postId,electionId,userId);
+	}
+
 }

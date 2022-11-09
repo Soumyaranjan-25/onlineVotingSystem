@@ -61,5 +61,10 @@ public class CandidateApplyDetailsServiceImpl implements CandidateApplyDetailsSe
 		return candidateApplyDetailsRepository.getByCandidateId(candidateApplyId);
 	}
 
+	@Override
+	public List<CandidateApplyDetails> getApprovedCandidateApplyDetailsByPostId(Integer postId) {
+		return candidateApplyDetailsRepository.getApprovedCandidateApplyDetailsByPostId(postId);
+	}
+
 	
 }

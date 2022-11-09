@@ -40,6 +40,13 @@ public class PostDetails implements Serializable {
 	@JoinColumn(name="election_id")
 	private Election election;
 	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="winner_user_id")
+	private User winningUser;
+	
 	@Column(name="bitstatus")
 	private String bitstatus;
+	
+	@Column(name="winner_voting_percentage")
+	private Double winnerVotingPercentage;
 }

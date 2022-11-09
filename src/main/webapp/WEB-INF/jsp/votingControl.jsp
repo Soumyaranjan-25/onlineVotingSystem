@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,6 +47,7 @@
 
 				</div>
 			</div>
+
 		</div>
 		<div class="card-body">
 			<div id="add">
@@ -76,8 +78,8 @@
 						</div>
 						<div class="row">
 							<div class="col-sm-6">
-								<label class="form-label text-info">No of Candidate </label> <input
-									type="number" id="noOfCandidate" name="noOfCandidate"
+								<label class="form-label text-info">Max No of Candidate
+								</label> <input type="number" id="noOfCandidate" name="noOfCandidate"
 									class="form-control" autocomplete="off"
 									value="${updatePostDetails.noOfCandidate}">
 							</div>
@@ -143,7 +145,8 @@
 				</div>
 				<h4>Declare Election</h4>
 				<div class="StartContainer border">
-					<form class="form-group" action="./electionDetails" method="post" id="declareForm">
+					<form class="form-group" action="./electionDetails" method="get"
+						id="declareForm">
 						<div class="ml-2">
 							<div class="row">
 								<div class="col-sm-6">
@@ -194,14 +197,20 @@
 
 			</div>
 			<div id="manage">
-				<h4>End Election</h4>
+				<h4>Manage Election</h4>
 				<div class="Container border">
 					<c:if test="${onGoingElection eq NULL}">
 						<h4 class="text-danger" align="center">
 							<b>No election is going on</b>
 						</h4>
 					</c:if>
-					<form class="form-group" action="./startElection" method="post">
+					<c:if test="${onGoingElection.electionStatus eq 1}">
+						<h4 class="text-danger" align="center">
+							<b>${onGoingElection.electionName} is going on</b>
+						</h4>
+					</c:if>
+					<form:form method="POST"
+						action="${pageContext.request.contextPath}/manageElection">
 						<div class="ml-2">
 							<div class="row ">
 								<div class="col-sm-6">
@@ -220,13 +229,13 @@
 							</div>
 							<div class="row">
 								<div class="col-sm-5 mt-3 ">
-									<input type="submit" class="btn btn-success" value="start">
-									<button class="btn btn-danger" id="endId">End</button>
+									<input type="submit" name="start" value="Start" class="btn btn-success"/>
+									<input type="submit" name="end" value="End" class="btn btn-danger"/>
 								</div>
 
 							</div>
 						</div>
-					</form>
+					</form:form>
 				</div>
 			</div>
 
@@ -281,11 +290,6 @@
 			$('#declareId').removeClass("active");
 			$('#addId').removeClass("active");
 		}
-		endId.onclick = function() {
-			window.location.href = "endElection";
-			
-		}
-
 		
 	</script>
 </body>

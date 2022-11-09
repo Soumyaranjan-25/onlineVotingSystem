@@ -17,7 +17,7 @@
 <body>
 	<div>
 		<h4>
-			<b>Vote Status Page</b>
+			<b>Election Results Page</b>
 		</h4>
 		<hr>
 		<c:if test="${ onGoingElection.electionStatus eq 0}">
@@ -27,7 +27,7 @@
 		</c:if>
 		<c:if test="${ onGoingElection.electionStatus eq 1}">
 			<h3 class="text-secondary" align="center">
-				<b>${votePercentage} % users have voted</b>
+				<b>${onGoingElection.electionName} results is not declare yet</b>
 			</h3>
 		</c:if>
 		<c:if test="${onGoingElection.electionStatus eq 2}">

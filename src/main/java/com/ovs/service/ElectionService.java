@@ -18,4 +18,6 @@ public interface ElectionService {
 
 	void startElection(Integer electionId);
 
+	Election getLatestElection();
+
 }

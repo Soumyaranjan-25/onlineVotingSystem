@@ -41,5 +41,8 @@ public interface CandidateApplyDetailsRepository extends JpaRepository<Candidate
 	@Query("From CandidateApplyDetails where candidateApplyId=:candidateApplyId")
 	CandidateApplyDetails getByCandidateId(Integer candidateApplyId);
 
+	@Query("From CandidateApplyDetails c where c.candidateStatus=1 and c.bitstatus='false' and c.postId.postId=:postId")
+	List<CandidateApplyDetails> getApprovedCandidateApplyDetailsByPostId(Integer postId);
+
 
 }

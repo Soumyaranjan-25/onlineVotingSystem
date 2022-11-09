@@ -14,4 +14,10 @@ public interface CandidateVoteDetailsRepository extends JpaRepository<CandidateV
 	@Query("From CandidateVoteDetails c where c.user.userId=:userId and c.election.electionId=:electionId")
 	List<CandidateVoteDetails> getCandidateVoteDetailsByUserId(Integer userId, Integer electionId);
 
+	@Query("SELECT count(distinct user) From CandidateVoteDetails c where c.election.electionId=:electionId")
+	Integer countByElectionId(Integer electionId);
+
+	@Query("SELECT count(*) From CandidateVoteDetails c where c.election.electionId=:electionId and c.candidate_id.userId=:userId and c.post.postId=:postId")
+	Integer getCandidateVoteDetailsByPostIdAndUserId(Integer postId, Integer electionId, Integer userId);
+
 }
