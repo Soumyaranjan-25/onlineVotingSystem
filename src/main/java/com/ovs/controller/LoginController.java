@@ -46,6 +46,11 @@ public class LoginController {
 	public String login() {
 		return "login";
 	}
+	
+	@GetMapping("/dashboard")
+	public String dashboard() {
+		return "adminDashBoard";
+	}
 
 	@GetMapping("/signUp")
 	public String signUp(Model model) {
@@ -65,9 +70,7 @@ public class LoginController {
 		String t = null;
 		for (Branch branch : course.getBranch()) {
 			t += "<option value='" + branch.getBranchId() + "'>" + branch.getBranchName() + "</option>";
-
 		}
-
 		pw.print(t);
 	}
 	
